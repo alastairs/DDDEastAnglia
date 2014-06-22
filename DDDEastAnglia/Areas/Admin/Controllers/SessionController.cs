@@ -38,7 +38,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var votesGroupedBySessionId = voteRepository.GetAllVotes().GroupBy(v => v.SessionId).ToDictionary(g => g.Key, g => g.Count());
+            var votesGroupedBySessionId = allVotesQuery.Execute().GroupBy(v => v.SessionId).ToDictionary(g => g.Key, g => g.Count());
             var sessions = sessionRepository.GetAllSessions().ToList();
 
             foreach (var session in sessions)
