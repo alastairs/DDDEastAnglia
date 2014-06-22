@@ -9,10 +9,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders
         private readonly IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder;
         private readonly IAllCalendarItemsQuery allCalendarItemsQuery;
 
-        public ConferenceBuilder(ICalendarItemRepository calendarItemRepository, IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder)
-            : this(calendarItemRepository, calendarEntryBuilder, new AllCalendarItemsQuery()) { }
-
-        public ConferenceBuilder(ICalendarItemRepository calendarItemRepository, IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder, IAllCalendarItemsQuery allCalendarItemsQuery)
+        public ConferenceBuilder(IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder, IAllCalendarItemsQuery allCalendarItemsQuery)
         {
             this.calendarEntryBuilder = calendarEntryBuilder;
             this.allCalendarItemsQuery = allCalendarItemsQuery;

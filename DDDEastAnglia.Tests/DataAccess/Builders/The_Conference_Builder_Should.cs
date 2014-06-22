@@ -210,7 +210,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void When_I_Build_The_Domain_Model()
         {
-            var conferenceBuilder = new ConferenceBuilder(_calendarItemRepository, new CalendarEntryBuilder(), allCalendarItemsQuery);
+            var conferenceBuilder = new ConferenceBuilder(new CalendarEntryBuilder(), allCalendarItemsQuery);
             _domainModel = conferenceBuilder.Build(_source);
         }
 
