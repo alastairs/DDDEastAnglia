@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.DataAccess.SimpleData.Queries;
 using DDDEastAnglia.Domain.Calendar;
@@ -41,19 +39,19 @@ namespace DDDEastAnglia.VotingData
     public class DataProvider : IDataProvider
     {
         private readonly QueryRunner queryRunner;
-        private readonly IVoteRepository voteRepository;
+        private readonly AllVotesQuery allVotesQuery;
         private readonly GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery;
 
-        public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
+        public DataProvider(QueryRunner queryRunner, AllVotesQuery allVotesQuery, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
         {
             if (queryRunner == null)
             {
                 throw new ArgumentNullException("queryRunner");
             }
 
-            if (voteRepository == null)
+            if (allVotesQuery == null)
             {
-                throw new ArgumentNullException("voteRepository");
+                throw new ArgumentNullException("allVotesQuery");
             }
 
             if (getCalendarItemFromCalendarEntryTypeQuery == null)
@@ -62,13 +60,13 @@ namespace DDDEastAnglia.VotingData
             }
 
             this.queryRunner = queryRunner;
-            this.voteRepository = voteRepository;
+            this.allVotesQuery = allVotesQuery;
             this.getCalendarItemFromCalendarEntryTypeQuery = getCalendarItemFromCalendarEntryTypeQuery;
         }
 
         public int GetTotalVoteCount()
         {
-            return voteRepository.GetAllVotes().Count();
+            return allVotesQuery.Execute().Count();
         }
 
         public DateTime GetVotingStartDate()
@@ -116,7 +114,7 @@ namespace DDDEastAnglia.VotingData
 
         public int GetNumberOfUsersWhoHaveVoted()
         {
-            return voteRepository.GetAllVotes().GroupBy(v => v.CookieId).Count();
+            return allVotesQuery.Execute().GroupBy(v => v.CookieId).Count();
         }
 
         public IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit, bool allowDuplicateSpeakers)
@@ -133,7 +131,7 @@ namespace DDDEastAnglia.VotingData
 
         public IList<DateTimeVoteModel> GetVotesPerDate()
         {
-            var dateToCountDictionary = voteRepository.GetAllVotes()
+            var dateToCountDictionary = allVotesQuery.Execute()
                                                 .GroupBy(v => v.TimeRecorded.Date)
                                                 .ToDictionary(g => g.Key, g => g.Count());
 
@@ -183,7 +181,7 @@ namespace DDDEastAnglia.VotingData
 
         public IList<DateTimeVoteModel> GetVotesPerHour()
         {
-            var dateToCountDictionary = voteRepository.GetAllVotes()
+            var dateToCountDictionary = allVotesQuery.Execute()
                                                 .GroupBy(v => v.TimeRecorded.TimeOfDay.Hours)
                                                 .ToDictionary(g => g.Key, g => g.Count());
 
