@@ -41,7 +41,6 @@ namespace DDDEastAnglia.VotingData
     {
         private readonly QueryRunner queryRunner;
         private readonly IVoteRepository voteRepository;
-        private readonly ICalendarItemRepository calendarItemRepository;
         private readonly GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery;
 
         public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, ICalendarItemRepository calendarItemRepository) 
@@ -71,7 +70,6 @@ namespace DDDEastAnglia.VotingData
 
             this.queryRunner = queryRunner;
             this.voteRepository = voteRepository;
-            this.calendarItemRepository = calendarItemRepository;
             this.getCalendarItemFromCalendarEntryTypeQuery = getCalendarItemFromCalendarEntryTypeQuery;
         }
 
