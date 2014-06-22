@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.DataAccess.SimpleData.Builders;
 using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
+using DDDEastAnglia.DataAccess.SimpleData.Queries;
 using DDDEastAnglia.Domain.Calendar;
 using NSubstitute;
 using NUnit.Framework;
