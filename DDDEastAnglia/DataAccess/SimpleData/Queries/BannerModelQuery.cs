@@ -12,6 +12,11 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 
         public BannerModelQuery(IConferenceLoader conferenceLoader)
         {
+            if (conferenceLoader == null)
+            {
+                throw new ArgumentNullException("conferenceLoader");
+            }
+
             this.conferenceLoader = conferenceLoader;
         }
 
