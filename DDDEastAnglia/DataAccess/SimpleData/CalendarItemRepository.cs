@@ -19,19 +19,4 @@ namespace DDDEastAnglia.DataAccess.SimpleData
             return db.CalendarItems.FindByEntryTypeString(voting.ToString());
         }
     }
-
-    public class AllCalendarItemsQuery : IAllCalendarItemsQuery
-    {
-        private readonly dynamic db = Database.OpenNamedConnection("DDDEastAnglia");
-
-        public IEnumerable<CalendarItem> Execute()
-        {
-            return db.CalendarItems.All();
-        }
-    }
-
-    public interface IAllCalendarItemsQuery
-    {
-        IEnumerable<CalendarItem> Execute();
-    }
 }
