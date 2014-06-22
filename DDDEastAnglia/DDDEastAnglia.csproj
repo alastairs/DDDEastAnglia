@@ -232,7 +232,6 @@
     <Compile Include="DataAccess\SpeakerRepository.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
-    <Compile Include="DataAccess\ICalendarItemRepository.cs" />
     <Compile Include="DataAccess\IUserProfileRepository.cs" />
     <Compile Include="DataAccess\VotingCookieFactory.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
