@@ -10,8 +10,10 @@ namespace DDDEastAnglia.Controllers
 {
     public class TimelineController : Controller
     {
+        private const string DateOnlyPattern = "dddd d MMMM yyyy";
+        private const string TimeOnlyPattern = "H:mm";
+        private const string DateAndTimePattern = "dddd d MMMM yyyy, H:mm";
 
-        private readonly ICalendarItemRepository calendarItemRepository;
         private readonly GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery;
         private readonly IDateTimeFormatter dateTimeFormatter;
         private readonly IDateTimePassedEvaluator dateTimePassedEvaluator;
@@ -44,7 +46,6 @@ namespace DDDEastAnglia.Controllers
                 throw new ArgumentNullException("getCalendarItemFromCalendarEntryTypeQuery");
             }
 
-            this.calendarItemRepository = calendarItemRepository;
             this.dateTimeFormatter = dateTimeFormatter;
             this.dateTimePassedEvaluator = dateTimePassedEvaluator;
 
