@@ -9,7 +9,6 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
     public class BannerModelQuery : IBannerModelQuery
     {
         private readonly IConferenceLoader conferenceLoader;
-        private readonly ICalendarItemRepository calendarItemRepository;
 
         public BannerModelQuery(IConferenceLoader conferenceLoader, ICalendarItemRepository calendarItemRepository)
         {
@@ -24,7 +23,6 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
             }
             
             this.conferenceLoader = conferenceLoader;
-            this.calendarItemRepository = calendarItemRepository;
         }
 
         public BannerModel Get()
