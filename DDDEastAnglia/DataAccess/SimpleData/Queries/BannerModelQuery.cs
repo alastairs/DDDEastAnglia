@@ -10,18 +10,8 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
     {
         private readonly IConferenceLoader conferenceLoader;
 
-        public BannerModelQuery(IConferenceLoader conferenceLoader, ICalendarItemRepository calendarItemRepository)
+        public BannerModelQuery(IConferenceLoader conferenceLoader)
         {
-            if (calendarItemRepository == null)
-            {
-                throw new ArgumentNullException("calendarItemRepository");
-            }
-            
-            if (calendarItemRepository == null)
-            {
-                throw new ArgumentNullException("calendarItemRepository");
-            }
-            
             this.conferenceLoader = conferenceLoader;
         }
 
