@@ -11,19 +11,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class SessionController : Controller
     {
         private readonly ISessionRepository sessionRepository;
-        private readonly IVoteRepository voteRepository;
         private readonly AllVotesQuery allVotesQuery;
 
-        public SessionController(ISessionRepository sessionRepository, IVoteRepository voteRepository, AllVotesQuery allVotesQuery)
+        public SessionController(ISessionRepository sessionRepository, AllVotesQuery allVotesQuery)
         {
             if (sessionRepository == null)
             {
                 throw new ArgumentNullException("sessionRepository");
-            }
-
-            if (voteRepository == null)
-            {
-                throw new ArgumentNullException("voteRepository");
             }
 
             if (allVotesQuery == null)
@@ -32,7 +26,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             }
 
             this.sessionRepository = sessionRepository;
-            this.voteRepository = voteRepository;
             this.allVotesQuery = allVotesQuery;
         }
 
