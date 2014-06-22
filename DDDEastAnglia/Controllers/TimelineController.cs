@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.Domain.Calendar;
 using DDDEastAnglia.Helpers;
@@ -18,13 +17,8 @@ namespace DDDEastAnglia.Controllers
         private readonly IDateTimeFormatter dateTimeFormatter;
         private readonly IDateTimePassedEvaluator dateTimePassedEvaluator;
 
-        public TimelineController(ICalendarItemRepository calendarItemRepository, IDateTimeFormatter dateTimeFormatter, IDateTimePassedEvaluator dateTimePassedEvaluator, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
+        public TimelineController(IDateTimeFormatter dateTimeFormatter, IDateTimePassedEvaluator dateTimePassedEvaluator, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
         {
-            if (calendarItemRepository == null)
-            {
-                throw new ArgumentNullException("calendarItemRepository");
-            }
-
             if (dateTimeFormatter == null)
             {
                 throw new ArgumentNullException("dateTimeFormatter");
