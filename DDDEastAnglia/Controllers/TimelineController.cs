@@ -18,11 +18,6 @@ namespace DDDEastAnglia.Controllers
         private readonly IDateTimeFormatter dateTimeFormatter;
         private readonly IDateTimePassedEvaluator dateTimePassedEvaluator;
 
-        public TimelineController(ICalendarItemRepository calendarItemRepository, IDateTimeFormatter dateTimeFormatter, IDateTimePassedEvaluator dateTimePassedEvaluator)
-            : this(calendarItemRepository, dateTimeFormatter, dateTimePassedEvaluator, new GetCalendarItemFromCalendarEntryTypeQuery())
-        {
-        }
-
         public TimelineController(ICalendarItemRepository calendarItemRepository, IDateTimeFormatter dateTimeFormatter, IDateTimePassedEvaluator dateTimePassedEvaluator, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
         {
             if (calendarItemRepository == null)
