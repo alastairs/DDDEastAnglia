@@ -1,5 +1,6 @@
 ﻿using DDDEastAnglia.DataAccess.Builders;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
+using DDDEastAnglia.DataAccess.SimpleData.Queries;
 using DDDEastAnglia.Domain.Calendar;
 
 namespace DDDEastAnglia.DataAccess.SimpleData.Builders

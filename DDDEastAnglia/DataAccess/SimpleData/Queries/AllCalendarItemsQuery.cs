@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
 using Simple.Data;
 
-namespace DDDEastAnglia.DataAccess.SimpleData
+namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 {
     public class AllCalendarItemsQuery : IAllCalendarItemsQuery
     {
