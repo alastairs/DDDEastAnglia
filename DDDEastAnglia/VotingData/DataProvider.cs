@@ -44,9 +44,9 @@ namespace DDDEastAnglia.VotingData
         private readonly GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery;
 
         public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, ICalendarItemRepository calendarItemRepository) 
-            : this(queryRunner, voteRepository, calendarItemRepository, new GetCalendarItemFromCalendarEntryTypeQuery()) { }
+            : this(queryRunner, voteRepository, new GetCalendarItemFromCalendarEntryTypeQuery()) { }
 
-        public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, ICalendarItemRepository calendarItemRepository, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
+        public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
         {
             if (queryRunner == null)
             {
@@ -56,11 +56,6 @@ namespace DDDEastAnglia.VotingData
             if (voteRepository == null)
             {
                 throw new ArgumentNullException("voteRepository");
-            }
-            
-            if (calendarItemRepository == null)
-            {
-                throw new ArgumentNullException("calendarItemRepository");
             }
 
             if (getCalendarItemFromCalendarEntryTypeQuery == null)
