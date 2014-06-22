@@ -23,7 +23,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders
             }
             
             var conference = new Domain.Conference(item.ConferenceId, item.Name, item.ShortName, item.NumberOfTimeSlots, item.NumberOfTracks);
-            var calendarItems = calendarItemRepository.GetAll();
+            var calendarItems = new AllCalendarItemsQuery.Execute();
 
             foreach (var calendarItem in calendarItems)
             {
