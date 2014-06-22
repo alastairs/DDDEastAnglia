@@ -13,4 +13,14 @@ namespace DDDEastAnglia.DataAccess.SimpleData
             return db.CalendarItems.FindByEntryTypeString(voting.ToString());
         }
     }
+
+    public class GetCalendarItemFromCalendarEntryTypeQuery
+    {
+        private readonly dynamic db = Database.OpenNamedConnection("DDDEastAnglia");
+
+        public CalendarItem Execute(CalendarEntryType entryType)
+        {
+            return db.CalendarItems.FindByEntryTypeString(entryType.ToString());
+        }
+    }
 }
