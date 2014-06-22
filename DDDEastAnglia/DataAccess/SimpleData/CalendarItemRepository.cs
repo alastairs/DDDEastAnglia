@@ -4,11 +4,6 @@ using Simple.Data;
 
 namespace DDDEastAnglia.DataAccess.SimpleData
 {
-    public class CalendarItemRepository : ICalendarItemRepository
-    {
-        private readonly dynamic db = Database.OpenNamedConnection("DDDEastAnglia");
-    }
-
     public class GetCalendarItemFromCalendarEntryTypeQuery
     {
         private readonly dynamic db = Database.OpenNamedConnection("DDDEastAnglia");
