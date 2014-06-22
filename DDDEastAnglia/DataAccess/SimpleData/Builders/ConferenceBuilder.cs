@@ -6,7 +6,6 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders
 {
     public class ConferenceBuilder : IBuild<Conference, Domain.Conference>
     {
-        private readonly ICalendarItemRepository calendarItemRepository;
         private readonly IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder;
         private readonly IAllCalendarItemsQuery allCalendarItemsQuery;
 
@@ -15,7 +14,6 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders
 
         public ConferenceBuilder(ICalendarItemRepository calendarItemRepository, IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder, IAllCalendarItemsQuery allCalendarItemsQuery)
         {
-            this.calendarItemRepository = calendarItemRepository;
             this.calendarEntryBuilder = calendarEntryBuilder;
             this.allCalendarItemsQuery = allCalendarItemsQuery;
         }
