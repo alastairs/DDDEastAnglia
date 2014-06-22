@@ -53,14 +53,14 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult ConferenceDate()
         {
-            var conference = calendarItemRepository.GetFromType(CalendarEntryType.Conference);
+            var conference = getCalendarItemFromCalendarEntryTypeQuery.Execute(CalendarEntryType.Conference);
             string conferenceDate = dateTimeFormatter.FormatDate(conference.StartDate);
             return new ContentResult {Content = conferenceDate};
         }
 
         public ActionResult ConferenceTime()
         {
-            var conference = calendarItemRepository.GetFromType(CalendarEntryType.Conference);
+            var conference = getCalendarItemFromCalendarEntryTypeQuery.Execute(CalendarEntryType.Conference);
             string startTime = dateTimeFormatter.FormatTime(conference.StartDate);
             string endTime = dateTimeFormatter.FormatTime(conference.EndDate.Value);
             string conferenceTimes = string.Format("{0} to {1}", startTime, endTime);
@@ -69,10 +69,10 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Details()
         {
-            var sessionSubmission = calendarItemRepository.GetFromType(CalendarEntryType.SessionSubmission);
-            var voting = calendarItemRepository.GetFromType(CalendarEntryType.Voting);
-            var agendaPublished = calendarItemRepository.GetFromType(CalendarEntryType.AgendaPublished);
-            var registraion = calendarItemRepository.GetFromType(CalendarEntryType.Registration);
+            var sessionSubmission = getCalendarItemFromCalendarEntryTypeQuery.Execute(CalendarEntryType.SessionSubmission);
+            var voting = getCalendarItemFromCalendarEntryTypeQuery.Execute(CalendarEntryType.Voting);
+            var agendaPublished = getCalendarItemFromCalendarEntryTypeQuery.Execute(CalendarEntryType.AgendaPublished);
+            var registraion = getCalendarItemFromCalendarEntryTypeQuery.Execute(CalendarEntryType.Registration);
 
             var sessionSubmissionOpens = new TimelineItemModel
             {
