@@ -39,7 +39,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
             DateTimeOffset submissionCloses = DateTimeOffset.Now.AddDays(-1);
             DateTimeOffset votingCloses = DateTimeOffset.Now.AddDays(-1);
 
-            var allDates = calendarItemRepository.GetAll().ToDictionary(c => c.EntryType, c => c);
+            var allDates = new AllCalendarItemsQuery().Execute().ToDictionary(c => c.EntryType, c => c);
             var submission = allDates[CalendarEntryType.SessionSubmission];
                     
             if (submission != null && submission.EndDate.HasValue)
