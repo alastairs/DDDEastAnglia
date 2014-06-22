@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Domain.Calendar;
 using DDDEastAnglia.Helpers;
@@ -41,8 +42,12 @@ namespace DDDEastAnglia.VotingData
         private readonly QueryRunner queryRunner;
         private readonly IVoteRepository voteRepository;
         private readonly ICalendarItemRepository calendarItemRepository;
+        private readonly GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery;
 
-        public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, ICalendarItemRepository calendarItemRepository)
+        public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, ICalendarItemRepository calendarItemRepository) 
+            : this(queryRunner, voteRepository, calendarItemRepository, new GetCalendarItemFromCalendarEntryTypeQuery()) { }
+
+        public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, ICalendarItemRepository calendarItemRepository, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
         {
             if (queryRunner == null)
             {
@@ -58,10 +63,16 @@ namespace DDDEastAnglia.VotingData
             {
                 throw new ArgumentNullException("calendarItemRepository");
             }
-            
+
+            if (getCalendarItemFromCalendarEntryTypeQuery == null)
+            {
+                throw new ArgumentNullException("getCalendarItemFromCalendarEntryTypeQuery");
+            }
+
             this.queryRunner = queryRunner;
             this.voteRepository = voteRepository;
             this.calendarItemRepository = calendarItemRepository;
+            this.getCalendarItemFromCalendarEntryTypeQuery = getCalendarItemFromCalendarEntryTypeQuery;
         }
 
         public int GetTotalVoteCount()
