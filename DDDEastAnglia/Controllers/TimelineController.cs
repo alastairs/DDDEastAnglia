@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.Domain.Calendar;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
@@ -11,10 +12,16 @@ namespace DDDEastAnglia.Controllers
     {
 
         private readonly ICalendarItemRepository calendarItemRepository;
+        private readonly GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery;
         private readonly IDateTimeFormatter dateTimeFormatter;
         private readonly IDateTimePassedEvaluator dateTimePassedEvaluator;
 
         public TimelineController(ICalendarItemRepository calendarItemRepository, IDateTimeFormatter dateTimeFormatter, IDateTimePassedEvaluator dateTimePassedEvaluator)
+            : this(calendarItemRepository, dateTimeFormatter, dateTimePassedEvaluator, new GetCalendarItemFromCalendarEntryTypeQuery())
+        {
+        }
+
+        public TimelineController(ICalendarItemRepository calendarItemRepository, IDateTimeFormatter dateTimeFormatter, IDateTimePassedEvaluator dateTimePassedEvaluator, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
         {
             if (calendarItemRepository == null)
             {
@@ -31,9 +38,17 @@ namespace DDDEastAnglia.Controllers
                 throw new ArgumentNullException("dateTimePassedEvaluator");
             }
             
+
+            if (getCalendarItemFromCalendarEntryTypeQuery == null)
+            {
+                throw new ArgumentNullException("getCalendarItemFromCalendarEntryTypeQuery");
+            }
+
             this.calendarItemRepository = calendarItemRepository;
             this.dateTimeFormatter = dateTimeFormatter;
             this.dateTimePassedEvaluator = dateTimePassedEvaluator;
+
+            this.getCalendarItemFromCalendarEntryTypeQuery = getCalendarItemFromCalendarEntryTypeQuery;
         }
 
         public ActionResult ConferenceDate()
