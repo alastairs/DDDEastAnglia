@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.SimpleData.Queries;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
@@ -11,8 +12,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     {
         private readonly ISessionRepository sessionRepository;
         private readonly IVoteRepository voteRepository;
+        private readonly AllVotesQuery allVotesQuery;
 
-        public SessionController(ISessionRepository sessionRepository, IVoteRepository voteRepository)
+        public SessionController(ISessionRepository sessionRepository, IVoteRepository voteRepository, AllVotesQuery allVotesQuery)
         {
             if (sessionRepository == null)
             {
@@ -23,9 +25,15 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             {
                 throw new ArgumentNullException("voteRepository");
             }
-            
+
+            if (allVotesQuery == null)
+            {
+                throw new ArgumentNullException("allVotesQuery");
+            }
+
             this.sessionRepository = sessionRepository;
             this.voteRepository = voteRepository;
+            this.allVotesQuery = allVotesQuery;
         }
 
         public ActionResult Index()
