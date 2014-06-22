@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess.SimpleData;
+using DDDEastAnglia.DataAccess.SimpleData.Queries;
 using DDDEastAnglia.Domain.Calendar;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;

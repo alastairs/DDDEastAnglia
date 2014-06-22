@@ -2,7 +2,7 @@
 using DDDEastAnglia.Domain.Calendar;
 using Simple.Data;
 
-namespace DDDEastAnglia.DataAccess.SimpleData
+namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 {
     public class GetCalendarItemFromCalendarEntryTypeQuery
     {

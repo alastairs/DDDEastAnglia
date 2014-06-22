@@ -4,6 +4,7 @@ using System.Linq;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
+using DDDEastAnglia.DataAccess.SimpleData.Queries;
 using DDDEastAnglia.Domain.Calendar;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData.Models;
