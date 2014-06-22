@@ -20,7 +20,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData
         }
     }
 
-    public class AllCalendarItemsQuery
+    public class AllCalendarItemsQuery : IAllCalendarItemsQuery
     {
         private readonly dynamic db = Database.OpenNamedConnection("DDDEastAnglia");
 
@@ -28,5 +28,10 @@ namespace DDDEastAnglia.DataAccess.SimpleData
         {
             return db.CalendarItems.All();
         }
+    }
+
+    public interface IAllCalendarItemsQuery
+    {
+        IEnumerable<CalendarItem> Execute();
     }
 }
