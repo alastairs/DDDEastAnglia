@@ -43,9 +43,6 @@ namespace DDDEastAnglia.VotingData
         private readonly IVoteRepository voteRepository;
         private readonly GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery;
 
-        public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, ICalendarItemRepository calendarItemRepository) 
-            : this(queryRunner, voteRepository, new GetCalendarItemFromCalendarEntryTypeQuery()) { }
-
         public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, GetCalendarItemFromCalendarEntryTypeQuery getCalendarItemFromCalendarEntryTypeQuery)
         {
             if (queryRunner == null)
