@@ -119,7 +119,7 @@ namespace DDDEastAnglia.VotingData
 
         private T GetVotingDates<T>(Func<CalendarItem, T> callback)
         {
-            var votingDates = calendarItemRepository.GetFromType(CalendarEntryType.Voting);
+            var votingDates = getCalendarItemFromCalendarEntryTypeQuery.Execute(CalendarEntryType.Voting);
             return callback(votingDates);
         }
 
