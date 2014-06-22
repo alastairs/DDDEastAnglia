@@ -72,8 +72,8 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_No_CalendarItems()
         {
-            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
-            _calendarItemRepository.GetAll().Returns(new CalendarItem[0]);
+            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery.Execute().Returns(new CalendarItem[0]);
             _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
                 {
                     ConferenceId = 1,
@@ -84,8 +84,8 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Submission_Calendar_Item()
         {
-            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
-            _calendarItemRepository.GetAll().Returns(new List<CalendarItem>
+            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery.Execute().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
                                 {
@@ -105,8 +105,8 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Voting_Calendar_Item()
         {
-            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
-            _calendarItemRepository.GetAll().Returns(new List<CalendarItem>
+            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery.Execute().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
                                 {
@@ -133,8 +133,8 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         public void Given_A_DataModel_With_An_Open_Publishing_The_Agenda_Calendar_Item()
         {
-            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
-            _calendarItemRepository.GetAll().Returns(new List<CalendarItem>
+            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery.Execute().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
                                 {
@@ -168,8 +168,8 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Publishing_The_Agenda_Calendar_Item_And_An_Open_Registration_Calendar_Item()
         {
-            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
-            _calendarItemRepository.GetAll().Returns(new List<CalendarItem>
+            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery.Execute().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
                                 {
