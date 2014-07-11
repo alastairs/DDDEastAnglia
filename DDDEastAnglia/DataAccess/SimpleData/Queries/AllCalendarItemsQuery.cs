@@ -13,9 +13,4 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
             return db.CalendarItems.All();
         }
     }
-
-    public interface IVectorQuery<T>
-    {
-        IEnumerable<T> Execute();
-    }
 }
