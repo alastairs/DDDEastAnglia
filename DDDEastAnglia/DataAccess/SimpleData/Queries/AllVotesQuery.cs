@@ -4,7 +4,7 @@ using Simple.Data;
 
 namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 {
-    public class AllVotesQuery
+    public class AllVotesQuery : IVectorQuery<Vote>
     {
         private readonly dynamic db = Database.OpenNamedConnection("DDDEastAnglia");
 
