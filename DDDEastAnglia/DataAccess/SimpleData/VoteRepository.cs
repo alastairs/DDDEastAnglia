@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
 using Simple.Data;
 
@@ -8,11 +7,6 @@ namespace DDDEastAnglia.DataAccess.SimpleData
     public class VoteRepository : IVoteRepository
     {
         private readonly dynamic db = Database.OpenNamedConnection("DDDEastAnglia");
-
-        public IEnumerable<Vote> GetAllVotes()
-        {
-            return db.Votes.All();
-        }
 
         public void AddVote(Vote vote)
         {
