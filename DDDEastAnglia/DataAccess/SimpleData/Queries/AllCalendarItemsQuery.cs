@@ -4,7 +4,7 @@ using Simple.Data;
 
 namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 {
-    public class AllCalendarItemsQuery : IAllCalendarItemsQuery
+    public class AllCalendarItemsQuery : IVectorQuery<CalendarItem>
     {
         private readonly dynamic db = Database.OpenNamedConnection("DDDEastAnglia");
 
@@ -14,8 +14,8 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
         }
     }
 
-    public interface IAllCalendarItemsQuery
+    public interface IVectorQuery<T>
     {
-        IEnumerable<CalendarItem> Execute();
+        IEnumerable<T> Execute();
     }
 }

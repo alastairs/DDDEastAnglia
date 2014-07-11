@@ -71,7 +71,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_No_CalendarItems()
         {
-            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery = Substitute.For<IVectorQuery<CalendarItem>>();
             allCalendarItemsQuery.Execute().Returns(new CalendarItem[0]);
             _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
                 {
@@ -83,7 +83,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Submission_Calendar_Item()
         {
-            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery = Substitute.For<IVectorQuery<CalendarItem>>();
             allCalendarItemsQuery.Execute().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
@@ -104,7 +104,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Voting_Calendar_Item()
         {
-            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery = Substitute.For<IVectorQuery<CalendarItem>>();
             allCalendarItemsQuery.Execute().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
@@ -132,7 +132,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         public void Given_A_DataModel_With_An_Open_Publishing_The_Agenda_Calendar_Item()
         {
-            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery = Substitute.For<IVectorQuery<CalendarItem>>();
             allCalendarItemsQuery.Execute().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
@@ -167,7 +167,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Publishing_The_Agenda_Calendar_Item_And_An_Open_Registration_Calendar_Item()
         {
-            allCalendarItemsQuery = Substitute.For<IAllCalendarItemsQuery>();
+            allCalendarItemsQuery = Substitute.For<IVectorQuery<CalendarItem>>();
             allCalendarItemsQuery.Execute().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
@@ -253,7 +253,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
             Assert.That(_domainModel.CanRegister(), Is.True);
         }
 
-        private IAllCalendarItemsQuery allCalendarItemsQuery;
+        private IVectorQuery<CalendarItem> allCalendarItemsQuery;
         private Conference _domainModel;
         private DDDEastAnglia.DataAccess.SimpleData.Models.Conference _source;
     }
