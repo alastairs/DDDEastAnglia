@@ -245,9 +245,5 @@ namespace DDDEastAnglia.Controllers
             return session.SpeakerUserName != userName;
         }
 
-        private void sendSubmissionToSubmitter()
-        {
-
-        }
     }
 }
