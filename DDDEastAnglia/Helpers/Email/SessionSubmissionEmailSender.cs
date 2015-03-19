@@ -17,7 +17,6 @@ namespace DDDEastAnglia.Helpers.Email
         public const string FromEmailName = "DDD East Anglia";
         private const string sessionAbstractToken = "[SessionAbstract]";
         private const string sessionTitleToken = "[SessionTitle]";
-        private const string votingOpenDateToken = "[VotingOpenDateToken]";
 
         private readonly IEmailSender _emailSender;
         private readonly IMessageFactory _messageFactory;
