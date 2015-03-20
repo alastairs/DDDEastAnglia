@@ -1,34 +1,31 @@
-﻿using DDDEastAnglia.Helpers.File;
+﻿using System.Security.Cryptography.X509Certificates;
+using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
+using Glimpse.Mvc.AlternateType;
 using MarkdownSharp;
 using System;
 using System.Net.Mail;
 
 namespace DDDEastAnglia.Helpers.Email
 {
-    public interface ISessionSubmissionEmailSender
+    public interface ISessionSubmissionMessageFactory
     {
-        void SendEmail(string htmlTemplatePath, string textTemplatePath, Session session, UserProfile speakerProfile, bool updated);
+        IMailMessage Create(string htmlTemplatepath, string textTemplatePath, Session session,
+            UserProfile speakerProfile, bool updated);
     }
 
-    public class SessionSubmissionEmailSender : ISessionSubmissionEmailSender
+    public class SessionSubmissionMessageFactory : ISessionSubmissionMessageFactory
     {
         public const string FromEmailAddress = "admin@dddeastanglia.com";
         public const string FromEmailName = "DDD East Anglia";
         private const string sessionAbstractToken = "[SessionAbstract]";
         private const string sessionTitleToken = "[SessionTitle]";
 
-        private readonly IEmailSender _emailSender;
-        private readonly IMessageFactory _messageFactory;
-        private readonly IFileContentsProvider _fileContentsProvider;
+        private readonly IMessageFactory messageFactory;
+        private readonly IFileContentsProvider fileContentsProvider;
 
-        public SessionSubmissionEmailSender(IEmailSender emailSender, IMessageFactory messageFactory, IFileContentsProvider fileContentsProvider)
+        public SessionSubmissionMessageFactory(IMessageFactory messageFactory, IFileContentsProvider fileContentsProvider)
         {
-            if (emailSender == null)
-            {
-                throw new ArgumentNullException("emailSender");
-            }
-
             if (messageFactory == null)
             {
                 throw new ArgumentNullException("messageFactory");
@@ -39,15 +36,14 @@ namespace DDDEastAnglia.Helpers.Email
                 throw new ArgumentNullException("fileContentsProvider");
             }
 
-            _emailSender = emailSender;
-            _messageFactory = messageFactory;
-            _fileContentsProvider = fileContentsProvider;
+            this.messageFactory = messageFactory;
+            this.fileContentsProvider = fileContentsProvider;
         }
 
-        public void SendEmail(string htmlTemplatePath, string textTemplatePath, Session session, UserProfile speakerProfile, bool updated)
+        public IMailMessage Create(string htmlTemplatePath, string textTemplatePath, Session session, UserProfile speakerProfile, bool updated)
         {
-            string htmlTemplate = _fileContentsProvider.GetFileContents(htmlTemplatePath);
-            string textTemplate = _fileContentsProvider.GetFileContents(textTemplatePath);
+            string htmlTemplate = fileContentsProvider.GetFileContents(htmlTemplatePath);
+            string textTemplate = fileContentsProvider.GetFileContents(textTemplatePath);
 
             var from = new MailAddress(FromEmailAddress, FromEmailName);
             var to = new MailAddress(speakerProfile.EmailAddress, speakerProfile.Name);
@@ -59,8 +55,7 @@ namespace DDDEastAnglia.Helpers.Email
             var text = textTemplate.Replace(sessionTitleToken, session.Title).Replace(sessionAbstractToken, session.Abstract);
 
             string emailSubject = updated ? "DDD East Anglia Updated Session: " + session.Title : "DDD East Anglia Session Submission: " + session.Title;
-            var message = _messageFactory.Create(from, to, emailSubject, html, text);
-            _emailSender.Send(message);
+            return messageFactory.Create(from, to, emailSubject, html, text);
         }
     }
 }
