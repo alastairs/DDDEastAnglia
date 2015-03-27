@@ -16,15 +16,17 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
-        private readonly ISessionSubmissionEmailSender emailSender;
+        private readonly IEmailSender emailSender;
+        private readonly ISessionSubmissionMessageFactory messageFactory;
 
-        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, ISessionSubmissionEmailSender emailSender)
+        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IEmailSender emailSender, ISessionSubmissionMessageFactory messageFactory)
         {
             this.conferenceLoader = conferenceLoader;
             this.userProfileRepository = userProfileRepository;
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
             this.emailSender = emailSender;
+            this.messageFactory = messageFactory;
         }
 
         [AllowAnonymous]
@@ -117,7 +119,10 @@ namespace DDDEastAnglia.Controllers
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
                 string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
-                emailSender.SendEmail(htmlTemplatePath, textTemplatePath, addedSession, speakerProfile, false);
+
+                IMailMessage sessionSubmissionMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
+                    speakerProfile, false);
+                emailSender.Send(sessionSubmissionMessage);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -161,7 +166,10 @@ namespace DDDEastAnglia.Controllers
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
                 string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
-                emailSender.SendEmail(htmlTemplatePath, textTemplatePath, session, speakerProfile, true);
+
+                IMailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
+                    speakerProfile, true);
+                emailSender.Send(sessionUpdateMessage);
 
                 return RedirectToAction("Index");
             }

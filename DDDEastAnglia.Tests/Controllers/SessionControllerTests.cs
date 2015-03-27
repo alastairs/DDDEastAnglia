@@ -1,5 +1,4 @@
-﻿using System.Web.Mvc;
-using DDDEastAnglia.Controllers;
+﻿using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Domain;
 using DDDEastAnglia.Helpers;
@@ -7,6 +6,7 @@ using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Tests.Controllers
 {
@@ -51,7 +51,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void CannotSaveAnEditToASession_WhenTheSessionBelongsToAnotherUser()
         {
-            var session = new Session {SessionId = 1, SpeakerUserName = "bob"};
+            var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
             var controller = SessionControllerFactory.Create(session);
 
             var result = controller.Edit("fred", session);
@@ -87,7 +87,7 @@ namespace DDDEastAnglia.Tests.Controllers
             {
                 var conferenceLoader = Substitute.For<IConferenceLoader>();
                 conferenceLoader.LoadConference().Returns(conference);
-                var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>(), Substitute.For<ISessionSubmissionEmailSender>());
+                var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>(), Substitute.For<IEmailSender>(), Substitute.For<ISessionSubmissionMessageFactory>());
                 return controller;
             }
 
@@ -95,7 +95,7 @@ namespace DDDEastAnglia.Tests.Controllers
             {
                 var sessionRepository = Substitute.For<ISessionRepository>();
                 sessionRepository.Get(session.SessionId).Returns(session);
-                var controller = new SessionController(Substitute.For<IConferenceLoader>(), Substitute.For<IUserProfileRepository>(), sessionRepository, Substitute.For<ISessionSorter>(), Substitute.For<ISessionSubmissionEmailSender>());
+                var controller = new SessionController(Substitute.For<IConferenceLoader>(), Substitute.For<IUserProfileRepository>(), sessionRepository, Substitute.For<ISessionSorter>(), Substitute.For<IEmailSender>(), Substitute.For<ISessionSubmissionMessageFactory>());
                 return controller;
             }
         }
