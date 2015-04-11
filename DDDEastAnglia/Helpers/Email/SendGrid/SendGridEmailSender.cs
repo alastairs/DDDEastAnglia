@@ -1,6 +1,7 @@
-﻿using System;
+﻿using SendGridMail.Transport;
+using System;
 using System.Net;
-using SendGridMail.Transport;
+using System.Net.Mail;
 
 namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
@@ -23,10 +24,16 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
             var hostSettings = hostSettingsProvider.GetSettings();
             var credentials = new NetworkCredential(hostSettings.Username, hostSettings.Password);
             SMTP instance = SMTP.GetInstance(credentials, hostSettings.Host, hostSettings.Port);
-            
-            // don't like this, but will do for now
-            var sendGridMessageWrapper = (SendGridMessageWrapper) message;
-            instance.Deliver(sendGridMessageWrapper.SendGrid);
+
+            var sendGrid = SendGridMail.SendGrid.GetInstance(
+                message.From,
+                message.To,
+                new MailAddress[0],
+                new MailAddress[0],
+                message.Subject,
+                message.Html,
+                message.Text);
+            instance.Deliver(sendGrid);
         }
     }
 }
