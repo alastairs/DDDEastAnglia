@@ -223,6 +223,7 @@
     <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
+    <Compile Include="Helpers\Email\SendGrid\IRenderer.cs" />
     <Compile Include="Helpers\Email\SessionSubmissionMessageFactory.cs" />
     <Compile Include="Helpers\HtmlMailTemplate.cs" />
     <Compile Include="Helpers\IMailTemplate.cs" />
