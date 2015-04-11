@@ -225,7 +225,7 @@
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="Helpers\Email\SendGrid\IRenderer.cs" />
     <Compile Include="Helpers\Email\SessionSubmissionMessageFactory.cs" />
-    <Compile Include="Helpers\HtmlMailTemplate.cs" />
+    <Compile Include="Helpers\HtmlRenderer.cs" />
     <Compile Include="Helpers\IMailTemplate.cs" />
     <Compile Include="Helpers\IMessenger.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />

@@ -124,9 +124,7 @@ namespace DDDEastAnglia.Controllers
 
                 var fileContentsProvider = new FileContentsProvider();
                 var plainTextMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
-                var htmlMailTemplate = new HtmlMailTemplate(
-                    plainTextMailTemplate,
-                    fileContentsProvider.GetFileContents(Server.MapPath("~/EmailTemplate.html")));
+                var htmlMailTemplate = new HtmlRenderer(fileContentsProvider.GetFileContents(Server.MapPath("~/EmailTemplate.html")));
 
                 new SessionCreationMailMessenger(postman, plainTextMailTemplate, htmlMailTemplate).Notify(speakerProfile, addedSession);
 
