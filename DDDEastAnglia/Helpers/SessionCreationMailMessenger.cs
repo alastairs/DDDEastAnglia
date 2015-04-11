@@ -11,13 +11,11 @@ namespace DDDEastAnglia.Helpers
     {
         private readonly IPostman postman;
         private readonly IMailTemplate plainTextTemplate;
-        private readonly IMailTemplate htmlTemplate;
 
         private const string sessionAbstractToken = "[SessionAbstract]";
 
         private const string sessionTitleToken = "[SessionTitle]";
-
-        public SessionCreationMailMessenger(IPostman postman, IMailTemplate plainTextTemplate, IMailTemplate htmlTemplate)
+        public SessionCreationMailMessenger(IPostman postman, IMailTemplate plainTextTemplate)
         {
             if (postman == null)
             {
@@ -29,14 +27,8 @@ namespace DDDEastAnglia.Helpers
                 throw new ArgumentNullException("plainTextTemplate");
             }
 
-            if (htmlTemplate == null)
-            {
-                throw new ArgumentNullException("htmlTemplate");
-            }
-
             this.postman = postman;
             this.plainTextTemplate = plainTextTemplate;
-            this.htmlTemplate = htmlTemplate;
         }
 
         public void Notify(UserProfile user, Session session)
