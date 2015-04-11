@@ -88,7 +88,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             string expectedContent = string.Format(contentTemplate, "abstract");
-            Assert.AreEqual(expectedContent, result.Text);
+            Assert.AreEqual(expectedContent, result.Body);
         }
 
         [Test]

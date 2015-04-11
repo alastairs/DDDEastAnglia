@@ -51,7 +51,7 @@ namespace DDDEastAnglia.Helpers
                 To = new MailAddress(user.EmailAddress),
                 From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
                 Subject = "DDD East Anglia Session Submission: " + session.Title,
-                Text = plainTextTemplate.Render(replacementTokens)
+                Body = plainTextTemplate.Render(replacementTokens)
             };
 
             postman.Deliver(message);

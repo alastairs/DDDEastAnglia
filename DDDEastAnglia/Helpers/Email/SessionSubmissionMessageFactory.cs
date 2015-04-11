@@ -55,7 +55,7 @@ namespace DDDEastAnglia.Helpers.Email
                 From = from,
                 To = to,
                 Subject = emailSubject,
-                Text = text
+                Body = text
             };
         }
     }

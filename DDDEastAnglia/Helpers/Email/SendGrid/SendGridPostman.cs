@@ -38,8 +38,8 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
                 new MailAddress[0],
                 new MailAddress[0],
                 message.Subject,
-                htmlRenderer.Render(message.Text),
-                message.Text);
+                htmlRenderer.Render(message.Body),
+                message.Body);
             instance.Deliver(sendGrid);
         }
     }
