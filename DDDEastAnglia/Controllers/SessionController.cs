@@ -1,12 +1,11 @@
-﻿using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.Email;
-using DDDEastAnglia.Helpers.File;
-using DDDEastAnglia.Models;
-using DDDEastAnglia.Mvc.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Models;
+using DDDEastAnglia.Mvc.Attributes;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -122,7 +121,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var fileContentsProvider = new FileContentsProvider();
-                var sessionCreatedMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
+                var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
 
                 new SessionCreationMailMessenger(postman, sessionCreatedMailTemplate).Notify(speakerProfile, addedSession);
 

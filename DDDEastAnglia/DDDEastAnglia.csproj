@@ -232,6 +232,7 @@
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
     <Compile Include="Helpers\MarkdownConvertingMailTemplate.cs" />
+    <Compile Include="Helpers\SessionCreatedMailTemplate.cs" />
     <Compile Include="Helpers\SessionCreationMailMessenger.cs" />
     <Compile Include="Helpers\TokenSubstitutingMailTemplate.cs" />
     <Compile Include="Models\LoginMethod.cs" />

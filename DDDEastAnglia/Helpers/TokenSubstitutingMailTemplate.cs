@@ -4,13 +4,13 @@ using DDDEastAnglia.Helpers.File;
 
 namespace DDDEastAnglia.Helpers
 {
-    internal class TokenSubstitutingMailTemplate : IMailTemplate
+    internal abstract class TokenSubstitutingMailTemplate : IMailTemplate
     {
         private readonly string templatePath;
         private readonly IFileContentsProvider fileContentsProvider;
         private readonly IDictionary<string, string> substitutions = new Dictionary<string, string>();
 
-        public TokenSubstitutingMailTemplate(string templatePath, IFileContentsProvider fileContentsProvider)
+        protected TokenSubstitutingMailTemplate(string templatePath, IFileContentsProvider fileContentsProvider)
         {
             if (string.IsNullOrWhiteSpace(templatePath))
             {
