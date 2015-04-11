@@ -31,7 +31,7 @@ namespace DDDEastAnglia.Helpers
             substitutions[token] = substitution;
         }
 
-        public string Render(IDictionary<string, string> replacements)
+        public string Render()
         {
             var content = fileContentsProvider.GetFileContents(templatePath);
 

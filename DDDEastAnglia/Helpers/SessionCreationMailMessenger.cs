@@ -36,18 +36,12 @@ namespace DDDEastAnglia.Helpers
             mailTemplate.AddTokenSubstitution(SessionTitleToken, session.Title);
             mailTemplate.AddTokenSubstitution(SessionAbstractToken, session.Abstract);
 
-            var replacementTokens = new Dictionary<string, string>
-            {
-                {SessionAbstractToken, session.Abstract},
-                {SessionTitleToken, session.Title}
-            };
-
             MailMessage message = new MailMessage
             {
                 To = new MailAddress(user.EmailAddress),
                 From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
                 Subject = "DDD East Anglia Session Submission: " + session.Title,
-                Body = mailTemplate.Render(replacementTokens)
+                Body = mailTemplate.Render()
             };
 
             postman.Deliver(message);
