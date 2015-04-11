@@ -30,7 +30,7 @@ namespace DDDEastAnglia.Services.Messenger.Email
         {
             MailMessage message = new MailMessage
             {
-                To = new MailAddress(user.EmailAddress),
+                To = new MailAddress(user.EmailAddress, user.Name),
                 From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
                 Subject = mailTemplate.RenderSubjectLine(),
                 Body = mailTemplate.RenderBody()
