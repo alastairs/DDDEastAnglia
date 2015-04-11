@@ -164,8 +164,8 @@ namespace DDDEastAnglia.Controllers
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                var mailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, session);
-                new SessionUpdatedMailMessenger(postman, mailTemplate).Notify(speakerProfile, session);
+                var mailTemplate = SessionUpdatedMailTemplate.Create(textTemplatePath, session);
+                new SessionCreationMailMessenger(postman, mailTemplate).Notify(speakerProfile, session);
 
                 return RedirectToAction("Index");
             }
