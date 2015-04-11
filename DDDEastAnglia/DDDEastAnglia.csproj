@@ -407,7 +407,6 @@
     <Compile Include="Helpers\Email\IEmailSender.cs" />
     <Compile Include="Helpers\File\IFileContentsProvider.cs" />
     <Compile Include="Helpers\Email\IMailHostSettingsProvider.cs" />
-    <Compile Include="Helpers\Email\IMessageFactory.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider.cs" />
     <Compile Include="Helpers\Email\ResetPasswordEmailSender.cs" />
     <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender.cs" />
