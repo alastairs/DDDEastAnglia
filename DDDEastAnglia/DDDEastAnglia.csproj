@@ -235,7 +235,7 @@
     <Compile Include="Helpers\SessionCreatedMailTemplate.cs" />
     <Compile Include="Helpers\SessionCreationMailMessenger.cs" />
     <Compile Include="Services\Messenger\Email\Templates\SessionCreatedMailTemplate.cs" />
-    <Compile Include="Services\Messenger\Email\SessionSubmittedMailMessenger.cs" />
+    <Compile Include="Services\Messenger\Email\EmailMessenger.cs" />
     <Compile Include="Helpers\TokenSubstitutingMailTemplate.cs" />
     <Compile Include="Models\LoginMethod.cs" />
     <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />

@@ -22,7 +22,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email
                 template.RenderBody().Returns("Message body");
                 template.RenderSubjectLine().Returns("Message subject");
 
-                var messenger = new SessionSubmittedMailMessenger(postman, template);
+                var messenger = new EmailMessenger(postman, template);
                 messenger.Notify(new UserProfile {EmailAddress = "speaker@dddeastanglia.com"});
 
                 var message = new MailMessage
