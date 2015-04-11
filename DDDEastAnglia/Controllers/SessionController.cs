@@ -122,9 +122,9 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var fileContentsProvider = new FileContentsProvider();
-                var plainTextMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
+                var sessionCreatedMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
 
-                new SessionCreationMailMessenger(postman, plainTextMailTemplate).Notify(speakerProfile, addedSession);
+                new SessionCreationMailMessenger(postman, sessionCreatedMailTemplate).Notify(speakerProfile, addedSession);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
