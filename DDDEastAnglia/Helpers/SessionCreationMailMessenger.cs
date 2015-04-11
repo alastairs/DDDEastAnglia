@@ -12,9 +12,6 @@ namespace DDDEastAnglia.Helpers
         private readonly IPostman postman;
         private readonly IMailTemplate mailTemplate;
 
-        private const string SessionAbstractToken = "[SessionAbstract]";
-        private const string SessionTitleToken = "[SessionTitle]";
-
         public SessionCreationMailMessenger(IPostman postman, IMailTemplate mailTemplate)
         {
             if (postman == null)
@@ -33,9 +30,6 @@ namespace DDDEastAnglia.Helpers
 
         public void Notify(UserProfile user, Session session)
         {
-            mailTemplate.AddTokenSubstitution(SessionTitleToken, session.Title);
-            mailTemplate.AddTokenSubstitution(SessionAbstractToken, session.Abstract);
-
             MailMessage message = new MailMessage
             {
                 To = new MailAddress(user.EmailAddress),

@@ -120,9 +120,7 @@ namespace DDDEastAnglia.Controllers
                 // TODO Add as resources or in the database so we can abstract the filesystem
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                var fileContentsProvider = new FileContentsProvider();
                 var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
-
                 new SessionCreationMailMessenger(postman, sessionCreatedMailTemplate).Notify(speakerProfile, addedSession);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });

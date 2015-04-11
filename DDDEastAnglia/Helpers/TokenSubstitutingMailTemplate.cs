@@ -26,7 +26,7 @@ namespace DDDEastAnglia.Helpers
             this.fileContentsProvider = fileContentsProvider;
         }
 
-        public void AddTokenSubstitution(string token, string substitution)
+        protected void AddTokenSubstitution(string token, string substitution)
         {
             substitutions[token] = substitution;
         }
