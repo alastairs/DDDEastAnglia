@@ -4,6 +4,6 @@ namespace DDDEastAnglia.Helpers.Email
 {
     public interface IEmailSender
     {
-        void Send(MailMessage message);
+        void Deliver(MailMessage message);
     }
 }

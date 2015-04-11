@@ -123,7 +123,7 @@ namespace DDDEastAnglia.Controllers
 
                 MailMessage sessionSubmissionMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
                     speakerProfile, false);
-                emailSender.Send(sessionSubmissionMessage);
+                emailSender.Deliver(sessionSubmissionMessage);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -170,7 +170,7 @@ namespace DDDEastAnglia.Controllers
 
                 MailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
                     speakerProfile, true);
-                emailSender.Send(sessionUpdateMessage);
+                emailSender.Deliver(sessionUpdateMessage);
 
                 return RedirectToAction("Index");
             }

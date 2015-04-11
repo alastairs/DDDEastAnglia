@@ -46,7 +46,7 @@ namespace DDDEastAnglia.Helpers.Email
             var text = textTemplate.Replace(ResetLinkToken, resetPasswordUrl);
 
             var message = new SendGrid.MailMessage() { From = from, To = to, Subject = ResetEmailSubject, Html = html, Text = text };
-            emailSender.Send(message);
+            emailSender.Deliver(message);
         }
     }
 }

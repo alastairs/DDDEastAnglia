@@ -75,7 +75,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             sender.SendEmail("htmlTemplatePath", "textTemplatePath", "user@dddeastanglia.com", resetPasswordUrl);
 
             emailSender.Received()
-                          .Send(mailMessage);
+                          .Deliver(mailMessage);
         }
     }
 }

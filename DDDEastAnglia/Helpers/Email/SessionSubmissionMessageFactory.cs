@@ -42,14 +42,17 @@ namespace DDDEastAnglia.Helpers.Email
 
             Markdown converter = new Markdown();
 
-            var html = htmlTemplate.Replace(sessionTitleToken, session.Title).Replace(sessionAbstractToken, converter.Transform(session.Abstract));
-
-            var text = textTemplate.Replace(sessionTitleToken, session.Title).Replace(sessionAbstractToken, session.Abstract);
+            var html = htmlTemplate
+                            .Replace(sessionTitleToken, session.Title)
+                            .Replace(sessionAbstractToken, converter.Transform(session.Abstract));
+            var text = textTemplate
+                            .Replace(sessionTitleToken, session.Title)
+                            .Replace(sessionAbstractToken, session.Abstract);
 
             string emailSubject = updated ? "DDD East Anglia Updated Session: " + session.Title : "DDD East Anglia Session Submission: " + session.Title;
             return new MailMessage
             {
-                From = @from,
+                From = from,
                 To = to,
                 Subject = emailSubject,
                 Html = html,
