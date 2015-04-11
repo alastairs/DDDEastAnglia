@@ -1,9 +1,10 @@
-﻿using System;
-using System.Net.Mail;
-using DDDEastAnglia.Helpers.Email;
+﻿using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Helpers.File;
 using NSubstitute;
 using NUnit.Framework;
+using System;
+using System.Net.Mail;
+using MailMessage = DDDEastAnglia.Helpers.Email.SendGrid.MailMessage;
 
 namespace DDDEastAnglia.Tests.Helpers.Email
 {
@@ -17,7 +18,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
             Assert.Throws<ArgumentNullException>(() => new ResetPasswordEmailSender(null, messageFactory, fileContentsProvider));
         }
-        
+
         [Test]
         public void ThrowAnExceptionWhenConstructed_WhenTheSuppliedMessageFactoryIsNull()
         {
@@ -37,31 +38,49 @@ namespace DDDEastAnglia.Tests.Helpers.Email
         [Test]
         public void SendAnEmailFromTheCorrectEmailAddressAndName()
         {
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("admin@dddeastanglia.com"),
+                To = new[] { new MailAddress("test@example.com") },
+                Subject = "Reset Password",
+                Html = string.Empty,
+                Text = string.Empty
+            };
+
             var emailSender = Substitute.For<IEmailSender>();
             var messageFactory = Substitute.For<IMessageFactory>();
+            messageFactory.Create(new MailAddress(ResetPasswordEmailSender.FromEmailAddress, ResetPasswordEmailSender.FromEmailName),
+                                    Arg.Any<MailAddress>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(mailMessage);
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
             var sender = new ResetPasswordEmailSender(emailSender, messageFactory, fileContentsProvider);
 
             sender.SendEmail("htmlTemplatePath", "textTemplatePath", "test@example.com", "http://reset/Password.Url");
 
-            messageFactory.Received()
-                          .Create(new MailAddress(ResetPasswordEmailSender.FromEmailAddress, ResetPasswordEmailSender.FromEmailName), 
-                                    Arg.Any<MailAddress>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
+            emailSender.Received().Send(mailMessage);
         }
 
         [Test]
         public void SendAnEmailToTheCorrectEmail()
         {
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("admin@dddeastanglia.com"),
+                To = new[] { new MailAddress("test@example.com") },
+                Subject = "Reset Password",
+                Html = string.Empty,
+                Text = string.Empty
+            };
+
             var emailSender = Substitute.For<IEmailSender>();
             var messageFactory = Substitute.For<IMessageFactory>();
+            messageFactory.Create(Arg.Any<MailAddress>(), new MailAddress("test@example.com"),
+                                    Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(mailMessage);
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
             var sender = new ResetPasswordEmailSender(emailSender, messageFactory, fileContentsProvider);
 
             sender.SendEmail("htmlTemplatePath", "textTemplatePath", "test@example.com", "http://reset/Password.Url");
 
-            messageFactory.Received()
-                          .Create(Arg.Any<MailAddress>(), new MailAddress("test@example.com"), 
-                                    Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
+            emailSender.Received().Send(mailMessage);
         }
 
         [Test]
@@ -91,45 +110,69 @@ namespace DDDEastAnglia.Tests.Helpers.Email
 
             fileContentsProvider.Received().GetFileContents("textTemplatePath");
         }
- 
+
         [Test]
         public void SubstituteTheResetPasswordLink_IntoTheHtmlTemplate()
         {
+            const string contentTemplate = "test {0} email";
+            const string resetPasswordUrl = "http://reset/Password.Url";
+            string expectedContent = string.Format(contentTemplate, resetPasswordUrl);
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("admin@dddeastanglia.com"),
+                To = new[] { new MailAddress("user@dddeastanglia.com") },
+                Subject = "Reset Password",
+                Html = expectedContent,
+                Text = string.Empty
+            };
+
             var emailSender = Substitute.For<IEmailSender>();
             var messageFactory = Substitute.For<IMessageFactory>();
+            messageFactory.Create(Arg.Any<MailAddress>(), Arg.Any<MailAddress>(), Arg.Any<string>(), Arg.Any<string>(),
+                Arg.Any<string>()).Returns(mailMessage);
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
             var sender = new ResetPasswordEmailSender(emailSender, messageFactory, fileContentsProvider);
-            const string contentTemplate = "test {0} email";
             string content = string.Format(contentTemplate, ResetPasswordEmailSender.ResetLinkToken);
             fileContentsProvider.GetFileContents("htmlTemplatePath").ReturnsForAnyArgs(content);
-            const string resetPasswordUrl = "http://reset/Password.Url";
 
             sender.SendEmail("htmlTemplatePath", "textTemplatePath", "test@example.com", resetPasswordUrl);
 
-            string expectedContent = string.Format(contentTemplate, resetPasswordUrl);
-            messageFactory.Received()
-                          .Create(Arg.Any<MailAddress>(), Arg.Any<MailAddress>(), 
-                                    Arg.Any<string>(), expectedContent, Arg.Any<string>());
+            emailSender.Received()
+                          .Send(mailMessage);
         }
- 
+
         [Test]
         public void SubstituteTheResetPasswordLink_IntoTheTextTemplate()
         {
+            const string resetPasswordUrl = "http://reset/Password.Url";
+            const string contentTemplate = "test {0} email";
+            string expectedContent = string.Format(contentTemplate, resetPasswordUrl);
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("admin@dddeastanglia.com"),
+                To = new[] { new MailAddress("user@dddeastanglia.com") },
+                Subject = "Reset Password",
+                Html = "",
+                Text = expectedContent
+            };
+
             var emailSender = Substitute.For<IEmailSender>();
             var messageFactory = Substitute.For<IMessageFactory>();
+            messageFactory.Create(
+                Arg.Any<MailAddress>(),
+                Arg.Any<MailAddress>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>()).Returns(mailMessage);
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
             var sender = new ResetPasswordEmailSender(emailSender, messageFactory, fileContentsProvider);
-            const string contentTemplate = "test {0} email";
             string content = string.Format(contentTemplate, ResetPasswordEmailSender.ResetLinkToken);
             fileContentsProvider.GetFileContents("textTemplatePath").ReturnsForAnyArgs(content);
-            const string resetPasswordUrl = "http://reset/Password.Url";
 
             sender.SendEmail("htmlTemplatePath", "textTemplatePath", "test@example.com", resetPasswordUrl);
 
-            string expectedContent = string.Format(contentTemplate, resetPasswordUrl);
-            messageFactory.Received()
-                          .Create(Arg.Any<MailAddress>(), Arg.Any<MailAddress>(), 
-                                    Arg.Any<string>(), Arg.Any<string>(), expectedContent);
+            emailSender.Received()
+                          .Send(mailMessage);
         }
     }
 }
