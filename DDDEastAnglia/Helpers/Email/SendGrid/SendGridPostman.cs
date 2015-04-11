@@ -8,15 +8,22 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
     public class SendGridPostman : IPostman
     {
         private readonly IMailHostSettingsProvider hostSettingsProvider;
+        private readonly IRenderer htmlRenderer;
 
-        public SendGridPostman(IMailHostSettingsProvider hostSettingsProvider)
+        public SendGridPostman(IMailHostSettingsProvider hostSettingsProvider, IRenderer htmlRenderer)
         {
             if (hostSettingsProvider == null)
             {
                 throw new ArgumentNullException("hostSettingsProvider");
             }
 
+            if (htmlRenderer == null)
+            {
+                throw new ArgumentNullException("htmlRenderer");
+            }
+
             this.hostSettingsProvider = hostSettingsProvider;
+            this.htmlRenderer = htmlRenderer;
         }
 
         public void Deliver(MailMessage message)
@@ -31,7 +38,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
                 new MailAddress[0],
                 new MailAddress[0],
                 message.Subject,
-                message.Html,
+                htmlRenderer.Render(message.Text),
                 message.Text);
             instance.Deliver(sendGrid);
         }
