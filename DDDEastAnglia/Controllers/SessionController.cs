@@ -119,12 +119,10 @@ namespace DDDEastAnglia.Controllers
 
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
                 // TODO Add as resources or in the database so we can abstract the filesystem
-                string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var fileContentsProvider = new FileContentsProvider();
                 var plainTextMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
-                var htmlMailTemplate = new HtmlRenderer(fileContentsProvider.GetFileContents(Server.MapPath("~/EmailTemplate.html")));
 
                 new SessionCreationMailMessenger(postman, plainTextMailTemplate).Notify(speakerProfile, addedSession);
 
