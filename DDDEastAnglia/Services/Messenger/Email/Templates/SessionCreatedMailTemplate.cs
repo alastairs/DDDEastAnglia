@@ -4,7 +4,7 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Services.Messenger.Email.Templates
 {
-    internal class SessionCreatedMailTemplate : TokenSubstitutingMailTemplate
+    public class SessionCreatedMailTemplate : TokenSubstitutingMailTemplate
     {
         private const string SessionAbstractToken = "[SessionAbstract]";
         private const string SessionTitleToken = "[SessionTitle]";

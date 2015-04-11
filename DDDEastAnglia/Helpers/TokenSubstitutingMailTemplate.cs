@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DDDEastAnglia.Helpers
 {
-    internal abstract class TokenSubstitutingMailTemplate : IMailTemplate
+    public abstract class TokenSubstitutingMailTemplate : IMailTemplate
     {
         private readonly string templateContent;
         private readonly IDictionary<string, string> substitutions = new Dictionary<string, string>();

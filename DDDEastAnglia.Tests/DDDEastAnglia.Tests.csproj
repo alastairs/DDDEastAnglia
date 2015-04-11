@@ -67,6 +67,7 @@
     <Compile Include="DnsLookupBuilder.cs" />
     <Compile Include="Helpers\Email\SessionSubmissionMessageFactory_Should.cs" />
     <Compile Include="Services\Messengers\Email\SessionSubmissionMessengerFacts.cs" />
+    <Compile Include="Services\Messengers\Email\Templates\SessionCreatedMailTemplateFacts.cs" />
     <Compile Include="VotingControllerBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />
@@ -142,7 +143,11 @@
       <Name>DDDEastAnglia</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Services\Messengers\Email\Templates\SessionCreated.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
