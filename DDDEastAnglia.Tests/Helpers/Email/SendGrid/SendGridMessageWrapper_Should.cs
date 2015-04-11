@@ -1,6 +1,6 @@
-﻿using System;
-using DDDEastAnglia.Helpers.Email.SendGrid;
+﻿using DDDEastAnglia.Helpers.Email.SendGrid;
 using NUnit.Framework;
+using System;
 
 namespace DDDEastAnglia.Tests.Helpers.Email.SendGrid
 {
@@ -10,7 +10,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email.SendGrid
         [Test]
         public void ThrowAnExceptionWhenConstructed_WhenTheSuppliedSendGridIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => new SendGridMessageWrapper(null));
+            Assert.Throws<ArgumentNullException>(() => new SendGridMessageWrapper());
         }
     }
 }
