@@ -4,7 +4,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
     public class SendGridMessageFactory : IMessageFactory
     {
-        public IMailMessage Create(MailAddress from, MailAddress to, string subject, string htmlContent, string textContent)
+        public MailMessage Create(MailAddress from, MailAddress to, string subject, string htmlContent, string textContent)
         {
             return new MailMessage
             {

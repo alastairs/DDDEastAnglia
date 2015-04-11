@@ -10,7 +10,7 @@ namespace DDDEastAnglia.Helpers.Email
 {
     public interface ISessionSubmissionMessageFactory
     {
-        IMailMessage Create(string htmlTemplatepath, string textTemplatePath, Session session,
+        MailMessage Create(string htmlTemplatepath, string textTemplatePath, Session session,
             UserProfile speakerProfile, bool updated);
     }
 
@@ -38,7 +38,7 @@ namespace DDDEastAnglia.Helpers.Email
             this.fileContentsProvider = fileContentsProvider;
         }
 
-        public IMailMessage Create(string htmlTemplatePath, string textTemplatePath, Session session, UserProfile speakerProfile, bool updated)
+        public MailMessage Create(string htmlTemplatePath, string textTemplatePath, Session session, UserProfile speakerProfile, bool updated)
         {
             string htmlTemplate = fileContentsProvider.GetFileContents(htmlTemplatePath);
             string textTemplate = fileContentsProvider.GetFileContents(textTemplatePath);

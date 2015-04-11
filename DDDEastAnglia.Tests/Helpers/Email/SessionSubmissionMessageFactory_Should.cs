@@ -1,4 +1,5 @@
 ﻿using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Helpers.Email.SendGrid;
 using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
 using NSubstitute;
@@ -34,7 +35,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             var profile = new UserProfile { EmailAddress = "speaker@dddeastanglia.com" };
             SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(messageFactory, fileContentsProvider);
 
-            IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
+            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             Assert.AreEqual(@"""DDD East Anglia"" <admin@dddeastanglia.com>", result.From.ToString());
         }
@@ -48,7 +49,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             var profile = new UserProfile { EmailAddress = "speaker@dddeastanglia.com" };
             SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(messageFactory, fileContentsProvider);
 
-            IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
+            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             Assert.AreEqual(profile.EmailAddress, result.To.First().ToString());
         }
@@ -64,7 +65,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(messageFactory, fileContentsProvider);
             fileContentsProvider.GetFileContents(string.Empty).ReturnsForAnyArgs("file contents");
 
-            IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
+            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             fileContentsProvider.Received().GetFileContents("htmlTemplatePath");
         }
@@ -80,7 +81,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(messageFactory, fileContentsProvider);
             fileContentsProvider.GetFileContents(string.Empty).ReturnsForAnyArgs("file contents");
 
-            IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
+            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             fileContentsProvider.Received().GetFileContents("textTemplatePath");
         }
@@ -98,7 +99,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             string content = string.Format(contentTemplate, session.Abstract);
             fileContentsProvider.GetFileContents("htmlTemplatePath").ReturnsForAnyArgs(content);
 
-            IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
+            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             string expectedContent = string.Format(contentTemplate, "abstract");
             Assert.AreEqual(expectedContent, result.Html);
@@ -117,7 +118,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             string content = string.Format(contentTemplate, session.Abstract);
             fileContentsProvider.GetFileContents("textTemplatePath").ReturnsForAnyArgs(content);
 
-            IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
+            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             string expectedContent = string.Format(contentTemplate, "abstract");
             Assert.AreEqual(expectedContent, result.Text);
@@ -136,7 +137,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             string content = string.Format(contentTemplate, session.Abstract);
             fileContentsProvider.GetFileContents("textTemplatePath").ReturnsForAnyArgs(content);
 
-            IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
+            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             string expectedContent = "DDD East Anglia Session Submission: title";
             Assert.AreEqual(expectedContent, result.Subject);
@@ -155,7 +156,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             string content = string.Format(contentTemplate, session.Abstract);
             fileContentsProvider.GetFileContents("textTemplatePath").ReturnsForAnyArgs(content);
 
-            IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, true);
+            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, true);
 
             string expectedContent = "DDD East Anglia Updated Session: title";
             Assert.AreEqual(expectedContent, result.Subject);

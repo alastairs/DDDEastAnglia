@@ -19,7 +19,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
             this.hostSettingsProvider = hostSettingsProvider;
         }
 
-        public void Send(IMailMessage message)
+        public void Send(MailMessage message)
         {
             var hostSettings = hostSettingsProvider.GetSettings();
             var credentials = new NetworkCredential(hostSettings.Username, hostSettings.Password);

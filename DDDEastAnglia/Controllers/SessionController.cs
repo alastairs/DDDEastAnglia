@@ -1,6 +1,7 @@
 ﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Helpers.Email.SendGrid;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 using System.Collections.Generic;
@@ -120,7 +121,7 @@ namespace DDDEastAnglia.Controllers
                 string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                IMailMessage sessionSubmissionMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
+                MailMessage sessionSubmissionMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
                     speakerProfile, false);
                 emailSender.Send(sessionSubmissionMessage);
 
@@ -167,7 +168,7 @@ namespace DDDEastAnglia.Controllers
                 string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                IMailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
+                MailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
                     speakerProfile, true);
                 emailSender.Send(sessionUpdateMessage);
 

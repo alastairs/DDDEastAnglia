@@ -1,7 +1,9 @@
-﻿namespace DDDEastAnglia.Helpers.Email
+﻿using DDDEastAnglia.Helpers.Email.SendGrid;
+
+namespace DDDEastAnglia.Helpers.Email
 {
     public interface IEmailSender
     {
-        void Send(IMailMessage message);
+        void Send(MailMessage message);
     }
 }
