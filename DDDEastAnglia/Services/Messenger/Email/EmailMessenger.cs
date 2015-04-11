@@ -7,6 +7,8 @@ namespace DDDEastAnglia.Services.Messenger.Email
 {
     public class EmailMessenger : IMessenger
     {
+        private static readonly MailAddress FromAddress = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia");
+
         private readonly IPostman postman;
         private readonly IMailTemplate mailTemplate;
 
@@ -31,7 +33,7 @@ namespace DDDEastAnglia.Services.Messenger.Email
             MailMessage message = new MailMessage
             {
                 To = new MailAddress(user.EmailAddress, user.Name),
-                From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
+                From = FromAddress,
                 Subject = mailTemplate.RenderSubjectLine(),
                 Body = mailTemplate.RenderBody()
             };
