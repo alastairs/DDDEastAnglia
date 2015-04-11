@@ -1,6 +1,6 @@
+using MarkdownSharp;
 using System;
 using System.Collections.Generic;
-using MarkdownSharp;
 
 namespace DDDEastAnglia.Helpers
 {
