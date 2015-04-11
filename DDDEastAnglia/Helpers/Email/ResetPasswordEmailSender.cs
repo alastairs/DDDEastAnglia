@@ -17,19 +17,13 @@ namespace DDDEastAnglia.Helpers.Email
         public const string ResetLinkToken = "[resetLink]";
 
         private readonly IEmailSender emailSender;
-        private readonly IMessageFactory messageFactory;
         private readonly IFileContentsProvider fileContentsProvider;
 
-        public ResetPasswordEmailSender(IEmailSender emailSender, IMessageFactory messageFactory, IFileContentsProvider fileContentsProvider)
+        public ResetPasswordEmailSender(IEmailSender emailSender, IFileContentsProvider fileContentsProvider)
         {
             if (emailSender == null)
             {
                 throw new ArgumentNullException("emailSender");
-            }
-
-            if (messageFactory == null)
-            {
-                throw new ArgumentNullException("messageFactory");
             }
 
             if (fileContentsProvider == null)
@@ -38,7 +32,6 @@ namespace DDDEastAnglia.Helpers.Email
             }
 
             this.emailSender = emailSender;
-            this.messageFactory = messageFactory;
             this.fileContentsProvider = fileContentsProvider;
         }
 
