@@ -47,7 +47,7 @@ namespace DDDEastAnglia.Helpers.Email
             var html = htmlTemplate.Replace(ResetLinkToken, resetPasswordUrl);
             var text = textTemplate.Replace(ResetLinkToken, resetPasswordUrl);
 
-            var message = new MailMessage() { From = from, To = to, Subject = ResetEmailSubject, Html = html, Text = text };
+            var message = new MailMessage() { From = from, To = to, Subject = ResetEmailSubject, Text = text };
             postman.Deliver(message);
         }
     }

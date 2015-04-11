@@ -62,7 +62,6 @@ namespace DDDEastAnglia.Tests.Helpers.Email
                 From = new MailAddress(@"""DDD East Anglia"" <admin@dddeastanglia.com>"),
                 To = new MailAddress("user@dddeastanglia.com"),
                 Subject = "DDD East Anglia Password Reset Request",
-                Html = expectedContent,
                 Text = expectedContent
             };
 
