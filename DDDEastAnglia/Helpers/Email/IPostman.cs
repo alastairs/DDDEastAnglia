@@ -2,7 +2,7 @@
 
 namespace DDDEastAnglia.Helpers.Email
 {
-    public interface IEmailSender
+    public interface IPostman
     {
         void Deliver(MailMessage message);
     }

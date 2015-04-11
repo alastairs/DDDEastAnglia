@@ -3,7 +3,6 @@ using DDDEastAnglia.Models;
 using MarkdownSharp;
 using System;
 using System.Net.Mail;
-using MailMessage = DDDEastAnglia.Helpers.Email.SendGrid.MailMessage;
 
 namespace DDDEastAnglia.Helpers.Email
 {

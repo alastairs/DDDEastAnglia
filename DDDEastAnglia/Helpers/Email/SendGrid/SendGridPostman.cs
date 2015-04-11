@@ -5,11 +5,11 @@ using System.Net.Mail;
 
 namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
-    public class SendGridEmailSender : IEmailSender
+    public class SendGridPostman : IPostman
     {
         private readonly IMailHostSettingsProvider hostSettingsProvider;
 
-        public SendGridEmailSender(IMailHostSettingsProvider hostSettingsProvider)
+        public SendGridPostman(IMailHostSettingsProvider hostSettingsProvider)
         {
             if (hostSettingsProvider == null)
             {

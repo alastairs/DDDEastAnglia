@@ -1,7 +1,6 @@
 ﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
-using DDDEastAnglia.Helpers.Email.SendGrid;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 using System.Collections.Generic;
@@ -17,16 +16,16 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
-        private readonly IEmailSender emailSender;
+        private readonly IPostman postman;
         private readonly ISessionSubmissionMessageFactory messageFactory;
 
-        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IEmailSender emailSender, ISessionSubmissionMessageFactory messageFactory)
+        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IPostman postman, ISessionSubmissionMessageFactory messageFactory)
         {
             this.conferenceLoader = conferenceLoader;
             this.userProfileRepository = userProfileRepository;
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
-            this.emailSender = emailSender;
+            this.postman = postman;
             this.messageFactory = messageFactory;
         }
 
@@ -123,7 +122,7 @@ namespace DDDEastAnglia.Controllers
 
                 MailMessage sessionSubmissionMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
                     speakerProfile, false);
-                emailSender.Deliver(sessionSubmissionMessage);
+                postman.Deliver(sessionSubmissionMessage);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -170,7 +169,7 @@ namespace DDDEastAnglia.Controllers
 
                 MailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
                     speakerProfile, true);
-                emailSender.Deliver(sessionUpdateMessage);
+                postman.Deliver(sessionUpdateMessage);
 
                 return RedirectToAction("Index");
             }

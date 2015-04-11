@@ -16,14 +16,14 @@ namespace DDDEastAnglia.Helpers.Email
         public const string ResetEmailSubject = "DDD East Anglia Password Reset Request";
         public const string ResetLinkToken = "[resetLink]";
 
-        private readonly IEmailSender emailSender;
+        private readonly IPostman postman;
         private readonly IFileContentsProvider fileContentsProvider;
 
-        public ResetPasswordEmailSender(IEmailSender emailSender, IFileContentsProvider fileContentsProvider)
+        public ResetPasswordEmailSender(IPostman postman, IFileContentsProvider fileContentsProvider)
         {
-            if (emailSender == null)
+            if (postman == null)
             {
-                throw new ArgumentNullException("emailSender");
+                throw new ArgumentNullException("postman");
             }
 
             if (fileContentsProvider == null)
@@ -31,7 +31,7 @@ namespace DDDEastAnglia.Helpers.Email
                 throw new ArgumentNullException("fileContentsProvider");
             }
 
-            this.emailSender = emailSender;
+            this.postman = postman;
             this.fileContentsProvider = fileContentsProvider;
         }
 
@@ -45,8 +45,8 @@ namespace DDDEastAnglia.Helpers.Email
             var html = htmlTemplate.Replace(ResetLinkToken, resetPasswordUrl);
             var text = textTemplate.Replace(ResetLinkToken, resetPasswordUrl);
 
-            var message = new SendGrid.MailMessage() { From = from, To = to, Subject = ResetEmailSubject, Html = html, Text = text };
-            emailSender.Deliver(message);
+            var message = new MailMessage() { From = from, To = to, Subject = ResetEmailSubject, Html = html, Text = text };
+            postman.Deliver(message);
         }
     }
 }

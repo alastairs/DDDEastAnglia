@@ -4,7 +4,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Net.Mail;
-using MailMessage = DDDEastAnglia.Helpers.Email.SendGrid.MailMessage;
+using MailMessage = DDDEastAnglia.Helpers.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Helpers.Email
 {
@@ -21,14 +21,14 @@ namespace DDDEastAnglia.Tests.Helpers.Email
         [Test]
         public void ThrowAnExceptionWhenConstructed_WhenTheSuppliedFileContentsProviderIsNull()
         {
-            var emailSender = Substitute.For<IEmailSender>();
+            var emailSender = Substitute.For<IPostman>();
             Assert.Throws<ArgumentNullException>(() => new ResetPasswordEmailSender(emailSender, null));
         }
 
         [Test]
         public void LoadTheHtmlContentsOfTheEmail_FromTheSpecifiedHtmlTemplatePath()
         {
-            var emailSender = Substitute.For<IEmailSender>();
+            var emailSender = Substitute.For<IPostman>();
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
             var sender = new ResetPasswordEmailSender(emailSender, fileContentsProvider);
             fileContentsProvider.GetFileContents(null).ReturnsForAnyArgs("file contents");
@@ -41,7 +41,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
         [Test]
         public void LoadTheTextContentsOfTheEmail_FromTheSpecifiedTextTemplatePath()
         {
-            var emailSender = Substitute.For<IEmailSender>();
+            var emailSender = Substitute.For<IPostman>();
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
             var sender = new ResetPasswordEmailSender(emailSender, fileContentsProvider);
             fileContentsProvider.GetFileContents(null).ReturnsForAnyArgs("file contents");
@@ -66,7 +66,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
                 Text = expectedContent
             };
 
-            var emailSender = Substitute.For<IEmailSender>();
+            var emailSender = Substitute.For<IPostman>();
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
             var sender = new ResetPasswordEmailSender(emailSender, fileContentsProvider);
             string content = string.Format(contentTemplate, ResetPasswordEmailSender.ResetLinkToken);
