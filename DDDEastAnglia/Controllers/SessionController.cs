@@ -6,7 +6,6 @@ using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
-using DDDEastAnglia.Services.Messenger;
 using DDDEastAnglia.Services.Messenger.Email;
 using DDDEastAnglia.Services.Messenger.Email.Templates;
 
@@ -166,12 +165,10 @@ namespace DDDEastAnglia.Controllers
                 sessionRepository.UpdateSession(session);
 
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
-                string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                MailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
-                    speakerProfile, true);
-                postman.Deliver(sessionUpdateMessage);
+                var mailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, session);
+                new SessionUpdatedMailMessenger(postman, mailTemplate).Notify(speakerProfile, session);
 
                 return RedirectToAction("Index");
             }
