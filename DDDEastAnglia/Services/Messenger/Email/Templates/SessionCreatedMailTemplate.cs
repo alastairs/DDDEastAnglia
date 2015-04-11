@@ -9,7 +9,9 @@ namespace DDDEastAnglia.Services.Messenger.Email.Templates
         private const string SessionAbstractToken = "[SessionAbstract]";
         private const string SessionTitleToken = "[SessionTitle]";
 
-        private SessionCreatedMailTemplate(string templateContent) : base(templateContent)
+        private const string MailSubject = "DDD East Anglia Session Submission: " + SessionTitleToken;
+
+        private SessionCreatedMailTemplate(string templateContent) : base(MailSubject, templateContent)
         {
         }
 

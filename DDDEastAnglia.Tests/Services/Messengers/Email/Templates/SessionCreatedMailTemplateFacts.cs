@@ -33,6 +33,17 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email.Templates
                 Assert.That(renderedTemplate, Contains.Substring("Vote for me!"));
             }
 
+            [Test]
+            public void Substitute_The_Session_Title_In_The_Template_Subject_Line()
+            {
+                var template = CreateSut(title: "My awesome session");
+
+                var renderedSubjectLine = template.RenderSubjectLine();
+
+                Assert.That(renderedSubjectLine, Is.Not.StringContaining("[SessionTitle]"));
+                Assert.That(renderedSubjectLine, Is.StringContaining("My awesome session"));
+            }
+
             private static IMailTemplate CreateSut(string title = "", string @abstract = "")
             {
                 var template = SessionCreatedMailTemplate.Create(@"Services\Messengers\Email\Templates\SessionCreated.txt",

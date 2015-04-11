@@ -20,6 +20,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email
                 var postman = Substitute.For<IPostman>();
                 var template = Substitute.For<IMailTemplate>();
                 template.RenderBody().Returns("Message body");
+                template.RenderSubjectLine().Returns("Message subject");
 
                 var messenger = new SessionCreationMailMessenger(postman, template);
                 messenger.Notify(new UserProfile {EmailAddress = "speaker@dddeastanglia.com"},
@@ -29,7 +30,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email
                 {
                     From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
                     To = new MailAddress("speaker@dddeastanglia.com"),
-                    Subject = "DDD East Anglia Session Submission: My awesome session",
+                    Subject = "Message subject",
                     Body = "Message body"
                 };
 
