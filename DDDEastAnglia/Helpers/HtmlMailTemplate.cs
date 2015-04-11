@@ -1,4 +1,5 @@
 using DDDEastAnglia.Helpers.File;
+using MarkdownSharp;
 using System;
 using System.Collections.Generic;
 
@@ -35,7 +36,7 @@ namespace DDDEastAnglia.Helpers
         public string Render(IDictionary<string, string> replacements)
         {
             var messsageContent = mailTemplate.Render(replacements);
-
+            messsageContent = new Markdown().Transform(messsageContent);
             string htmlFile = fileContentsProvider.GetFileContents(htmlTemplatePath);
             var htmlMessage = htmlFile.Replace("[MessageBody]", messsageContent);
 

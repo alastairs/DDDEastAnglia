@@ -125,7 +125,7 @@ namespace DDDEastAnglia.Controllers
                 var fileContentsProvider = new FileContentsProvider();
                 var plainTextMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
                 var htmlMailTemplate = new HtmlMailTemplate(
-                    new MarkdownConvertingMailTemplate(plainTextMailTemplate),
+                    plainTextMailTemplate,
                     Server.MapPath("~/EmailTemplate.html"),
                     fileContentsProvider);
 
