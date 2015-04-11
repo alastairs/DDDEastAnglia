@@ -51,7 +51,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
 
             MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
-            Assert.AreEqual(profile.EmailAddress, result.To.First().ToString());
+            Assert.AreEqual(profile.EmailAddress, result.To.ToString());
         }
 
         [Test]

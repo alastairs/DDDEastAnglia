@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DDDEastAnglia.Helpers.File;
+using System;
 using System.Net.Mail;
-using DDDEastAnglia.Helpers.File;
 
 namespace DDDEastAnglia.Helpers.Email
 {
@@ -26,7 +26,7 @@ namespace DDDEastAnglia.Helpers.Email
             {
                 throw new ArgumentNullException("emailSender");
             }
-            
+
             if (messageFactory == null)
             {
                 throw new ArgumentNullException("messageFactory");
@@ -36,7 +36,7 @@ namespace DDDEastAnglia.Helpers.Email
             {
                 throw new ArgumentNullException("fileContentsProvider");
             }
-            
+
             this.emailSender = emailSender;
             this.messageFactory = messageFactory;
             this.fileContentsProvider = fileContentsProvider;
@@ -52,7 +52,7 @@ namespace DDDEastAnglia.Helpers.Email
             var html = htmlTemplate.Replace(ResetLinkToken, resetPasswordUrl);
             var text = textTemplate.Replace(ResetLinkToken, resetPasswordUrl);
 
-            var message = messageFactory.Create(from, to, ResetEmailSubject, html, text);
+            var message = new SendGrid.MailMessage() { From = from, To = to, Subject = ResetEmailSubject, Html = html, Text = text };
             emailSender.Send(message);
         }
     }

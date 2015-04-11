@@ -9,7 +9,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
             return new MailMessage
             {
                 From = from,
-                To = new[] { to },
+                To = to,
                 Subject = subject,
                 Html = htmlContent,
                 Text = textContent

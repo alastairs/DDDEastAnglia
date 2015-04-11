@@ -27,7 +27,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
 
             var sendGrid = SendGridMail.SendGrid.GetInstance(
                 message.From,
-                message.To,
+                new[] { message.To },
                 new MailAddress[0],
                 new MailAddress[0],
                 message.Subject,

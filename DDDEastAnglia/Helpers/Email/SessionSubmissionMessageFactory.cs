@@ -1,5 +1,4 @@
-﻿using DDDEastAnglia.Helpers.Email.SendGrid;
-using DDDEastAnglia.Helpers.File;
+﻿using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
 using MarkdownSharp;
 using System;
@@ -56,7 +55,7 @@ namespace DDDEastAnglia.Helpers.Email
             return new MailMessage
             {
                 From = @from,
-                To = new[] { to },
+                To = to,
                 Subject = emailSubject,
                 Html = html,
                 Text = text
