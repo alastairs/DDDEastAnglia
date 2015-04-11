@@ -3,7 +3,7 @@ using MarkdownSharp;
 
 namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
-    internal class HtmlRenderer : IRenderer
+    public class HtmlRenderer : IRenderer
     {
         private readonly string htmlTemplate;
 
