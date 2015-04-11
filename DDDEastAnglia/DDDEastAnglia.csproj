@@ -281,6 +281,7 @@
     <Content Include="Images\sponsors\devexpress.png" />
     <Content Include="SessionSubmissionTemplate.html" />
     <Content Include="EmailTemplate.html" />
+    <EmbeddedResource Include="EmailTemplate.html" />
     <Content Include="SessionSubmissionTemplate.txt" />
     <Content Include="Images\sponsors\ecmselection.png" />
     <Content Include="Images\sponsors\huddle.png" />
