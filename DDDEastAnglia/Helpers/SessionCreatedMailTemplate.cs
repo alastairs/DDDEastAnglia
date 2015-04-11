@@ -8,13 +8,13 @@ namespace DDDEastAnglia.Helpers
         private const string SessionAbstractToken = "[SessionAbstract]";
         private const string SessionTitleToken = "[SessionTitle]";
 
-        private SessionCreatedMailTemplate(string templatePath, IFileContentsProvider fileContentsProvider) : base(templatePath, fileContentsProvider)
+        private SessionCreatedMailTemplate(string templateContent) : base(templateContent)
         {
         }
 
         public static IMailTemplate Create(string templatePath, Session session)
         {
-            var template = new SessionCreatedMailTemplate(templatePath, new FileContentsProvider());
+            var template = new SessionCreatedMailTemplate(new FileContentsProvider().GetFileContents(templatePath));
             template.AddTokenSubstitution(SessionTitleToken, session.Title);
             template.AddTokenSubstitution(SessionAbstractToken, session.Abstract);
 

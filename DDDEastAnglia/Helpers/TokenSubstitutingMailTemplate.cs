@@ -1,29 +1,21 @@
 using System;
 using System.Collections.Generic;
-using DDDEastAnglia.Helpers.File;
 
 namespace DDDEastAnglia.Helpers
 {
     internal abstract class TokenSubstitutingMailTemplate : IMailTemplate
     {
-        private readonly string templatePath;
-        private readonly IFileContentsProvider fileContentsProvider;
+        private readonly string templateContent;
         private readonly IDictionary<string, string> substitutions = new Dictionary<string, string>();
 
-        protected TokenSubstitutingMailTemplate(string templatePath, IFileContentsProvider fileContentsProvider)
+        protected TokenSubstitutingMailTemplate(string templateContent)
         {
-            if (string.IsNullOrWhiteSpace(templatePath))
+            if (string.IsNullOrWhiteSpace(templateContent))
             {
-                throw new ArgumentNullException("templatePath");
+                throw new ArgumentNullException("templateContent");
             }
 
-            if (fileContentsProvider == null)
-            {
-                throw new ArgumentNullException("fileContentsProvider");
-            }
-
-            this.templatePath = templatePath;
-            this.fileContentsProvider = fileContentsProvider;
+            this.templateContent = templateContent;
         }
 
         protected void AddTokenSubstitution(string token, string substitution)
@@ -33,8 +25,7 @@ namespace DDDEastAnglia.Helpers
 
         public string Render()
         {
-            var content = fileContentsProvider.GetFileContents(templatePath);
-
+            var content = templateContent;
             foreach (var token in substitutions)
             {
                 content = content.Replace(token.Key, token.Value);
