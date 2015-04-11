@@ -68,6 +68,7 @@
     <Compile Include="Helpers\Email\SendGrid\HtmlRendererFacts.cs" />
     <Compile Include="Services\Messengers\Email\SessionUpdatedMessengerFacts.cs" />
     <Compile Include="Services\Messengers\Email\SessionSubmissionMessengerFacts.cs" />
+    <Compile Include="Services\Messengers\Email\Templates\SessionUpdatedMailTemplateFacts.cs" />
     <Compile Include="Services\Messengers\Email\Templates\SessionCreatedMailTemplateFacts.cs" />
     <Compile Include="VotingControllerBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
@@ -145,6 +146,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Services\Messengers\Email\Templates\SessionUpdated.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Services\Messengers\Email\Templates\SessionCreated.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -227,6 +227,7 @@
     <Compile Include="Helpers\Email\SendGrid\HtmlRenderer.cs" />
     <Compile Include="Helpers\IMailTemplate.cs" />
     <Compile Include="Services\Messenger\Email\SessionUpdatedMailMessenger.cs" />
+    <Compile Include="Services\Messenger\Email\Templates\SessionUpdatedMailTemplate.cs" />
     <Compile Include="Services\Messenger\IMessenger.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
