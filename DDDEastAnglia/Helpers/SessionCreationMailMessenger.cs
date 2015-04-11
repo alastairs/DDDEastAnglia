@@ -12,9 +12,9 @@ namespace DDDEastAnglia.Helpers
         private readonly IPostman postman;
         private readonly IMailTemplate plainTextTemplate;
 
-        private const string sessionAbstractToken = "[SessionAbstract]";
+        private const string SessionAbstractToken = "[SessionAbstract]";
+        private const string SessionTitleToken = "[SessionTitle]";
 
-        private const string sessionTitleToken = "[SessionTitle]";
         public SessionCreationMailMessenger(IPostman postman, IMailTemplate plainTextTemplate)
         {
             if (postman == null)
@@ -35,8 +35,8 @@ namespace DDDEastAnglia.Helpers
         {
             var replacementTokens = new Dictionary<string, string>
             {
-                {sessionAbstractToken, session.Abstract},
-                {sessionTitleToken, session.Title}
+                {SessionAbstractToken, session.Abstract},
+                {SessionTitleToken, session.Title}
             };
             MailMessage message = new MailMessage
             {
