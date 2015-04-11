@@ -5,7 +5,6 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Linq;
-using System.Net.Mail;
 
 namespace DDDEastAnglia.Tests.Helpers.Email
 {
@@ -35,13 +34,9 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             var profile = new UserProfile { EmailAddress = "speaker@dddeastanglia.com" };
             SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(messageFactory, fileContentsProvider);
 
-            var mockedMessage = Substitute.For<IMailMessage>();
-            mockedMessage.From.Returns(new MailAddress("admin@dddeastanglia.com"));
-            messageFactory.Create(null, null, string.Empty, string.Empty, string.Empty).ReturnsForAnyArgs(mockedMessage);
-
             IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
-            Assert.AreEqual("admin@dddeastanglia.com", result.From.ToString());
+            Assert.AreEqual(@"""DDD East Anglia"" <admin@dddeastanglia.com>", result.From.ToString());
         }
 
         [Test]
@@ -52,10 +47,6 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             var session = Substitute.For<Session>();
             var profile = new UserProfile { EmailAddress = "speaker@dddeastanglia.com" };
             SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(messageFactory, fileContentsProvider);
-
-            var mockedMessage = Substitute.For<IMailMessage>();
-            mockedMessage.To.Returns(new[] { new MailAddress("speaker@dddeastanglia.com") });
-            messageFactory.Create(null, null, string.Empty, string.Empty, string.Empty).ReturnsForAnyArgs(mockedMessage);
 
             IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
@@ -71,7 +62,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             var profile = new UserProfile { EmailAddress = "speaker@dddeastanglia.com" };
 
             SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(messageFactory, fileContentsProvider);
-            fileContentsProvider.GetFileContents(null).ReturnsForAnyArgs("file contents");
+            fileContentsProvider.GetFileContents(string.Empty).ReturnsForAnyArgs("file contents");
 
             IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
@@ -87,7 +78,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             var profile = new UserProfile { EmailAddress = "speaker@dddeastanglia.com" };
 
             SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(messageFactory, fileContentsProvider);
-            fileContentsProvider.GetFileContents(null).ReturnsForAnyArgs("file contents");
+            fileContentsProvider.GetFileContents(string.Empty).ReturnsForAnyArgs("file contents");
 
             IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
@@ -106,10 +97,6 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             const string contentTemplate = "test {0} email";
             string content = string.Format(contentTemplate, session.Abstract);
             fileContentsProvider.GetFileContents("htmlTemplatePath").ReturnsForAnyArgs(content);
-
-            var mockedMessage = Substitute.For<IMailMessage>();
-            mockedMessage.Html.Returns(content);
-            messageFactory.Create(null, null, string.Empty, string.Empty, string.Empty).ReturnsForAnyArgs(mockedMessage);
 
             IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
@@ -130,10 +117,6 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             string content = string.Format(contentTemplate, session.Abstract);
             fileContentsProvider.GetFileContents("textTemplatePath").ReturnsForAnyArgs(content);
 
-            var mockedMessage = Substitute.For<IMailMessage>();
-            mockedMessage.Text.Returns(content);
-            messageFactory.Create(null, null, string.Empty, string.Empty, string.Empty).ReturnsForAnyArgs(mockedMessage);
-
             IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             string expectedContent = string.Format(contentTemplate, "abstract");
@@ -153,10 +136,6 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             string content = string.Format(contentTemplate, session.Abstract);
             fileContentsProvider.GetFileContents("textTemplatePath").ReturnsForAnyArgs(content);
 
-            var mockedMessage = Substitute.For<IMailMessage>();
-            mockedMessage.Subject.Returns("DDD East Anglia Session Submission: title");
-            messageFactory.Create(null, null, string.Empty, string.Empty, string.Empty).ReturnsForAnyArgs(mockedMessage);
-
             IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             string expectedContent = "DDD East Anglia Session Submission: title";
@@ -175,10 +154,6 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             const string contentTemplate = "test {0} email";
             string content = string.Format(contentTemplate, session.Abstract);
             fileContentsProvider.GetFileContents("textTemplatePath").ReturnsForAnyArgs(content);
-
-            var mockedMessage = Substitute.For<IMailMessage>();
-            mockedMessage.Subject.Returns("DDD East Anglia Updated Session: title");
-            messageFactory.Create(null, null, string.Empty, string.Empty, string.Empty).ReturnsForAnyArgs(mockedMessage);
 
             IMailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, true);
 

@@ -1,7 +1,6 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using DDDEastAnglia.Helpers.Email.SendGrid;
 using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
-using Glimpse.Mvc.AlternateType;
 using MarkdownSharp;
 using System;
 using System.Net.Mail;
@@ -21,7 +20,6 @@ namespace DDDEastAnglia.Helpers.Email
         private const string sessionAbstractToken = "[SessionAbstract]";
         private const string sessionTitleToken = "[SessionTitle]";
 
-        private readonly IMessageFactory messageFactory;
         private readonly IFileContentsProvider fileContentsProvider;
 
         public SessionSubmissionMessageFactory(IMessageFactory messageFactory, IFileContentsProvider fileContentsProvider)
@@ -36,7 +34,6 @@ namespace DDDEastAnglia.Helpers.Email
                 throw new ArgumentNullException("fileContentsProvider");
             }
 
-            this.messageFactory = messageFactory;
             this.fileContentsProvider = fileContentsProvider;
         }
 
@@ -55,7 +52,14 @@ namespace DDDEastAnglia.Helpers.Email
             var text = textTemplate.Replace(sessionTitleToken, session.Title).Replace(sessionAbstractToken, session.Abstract);
 
             string emailSubject = updated ? "DDD East Anglia Updated Session: " + session.Title : "DDD East Anglia Session Submission: " + session.Title;
-            return messageFactory.Create(from, to, emailSubject, html, text);
+            return new SendGridMessageWrapper
+            {
+                From = @from,
+                To = new[] { to },
+                Subject = emailSubject,
+                Html = html,
+                Text = text
+            };
         }
     }
 }
