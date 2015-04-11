@@ -120,7 +120,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
-                new SessionSubmittedMailMessenger(postman, sessionCreatedMailTemplate).Notify(speakerProfile, addedSession);
+                new SessionSubmittedMailMessenger(postman, sessionCreatedMailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -165,7 +165,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var mailTemplate = SessionUpdatedMailTemplate.Create(textTemplatePath, session);
-                new SessionSubmittedMailMessenger(postman, mailTemplate).Notify(speakerProfile, session);
+                new SessionSubmittedMailMessenger(postman, mailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Index");
             }

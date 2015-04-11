@@ -5,7 +5,7 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Services.Messenger.Email
 {
-    public class SessionSubmittedMailMessenger : IMessenger<Session>
+    public class SessionSubmittedMailMessenger : IMessenger
     {
         private readonly IPostman postman;
         private readonly IMailTemplate mailTemplate;
@@ -26,7 +26,7 @@ namespace DDDEastAnglia.Services.Messenger.Email
             this.mailTemplate = mailTemplate;
         }
 
-        public void Notify(UserProfile user, Session session)
+        public void Notify(UserProfile user)
         {
             MailMessage message = new MailMessage
             {
