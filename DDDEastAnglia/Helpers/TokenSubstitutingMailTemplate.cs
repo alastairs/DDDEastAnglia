@@ -23,7 +23,7 @@ namespace DDDEastAnglia.Helpers
             substitutions[token] = substitution;
         }
 
-        public string Render()
+        public string RenderBody()
         {
             var content = templateContent;
             foreach (var token in substitutions)

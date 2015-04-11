@@ -19,7 +19,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email
             {
                 var postman = Substitute.For<IPostman>();
                 var template = Substitute.For<IMailTemplate>();
-                template.Render().Returns("Message body");
+                template.RenderBody().Returns("Message body");
 
                 var messenger = new SessionCreationMailMessenger(postman, template);
                 messenger.Notify(new UserProfile {EmailAddress = "speaker@dddeastanglia.com"},

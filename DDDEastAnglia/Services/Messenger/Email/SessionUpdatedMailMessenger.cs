@@ -33,7 +33,7 @@ namespace DDDEastAnglia.Services.Messenger.Email
                 To = new MailAddress(user.EmailAddress),
                 From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
                 Subject = "DDD East Anglia Updated Session: " + session.Title,
-                Body = mailTemplate.Render()
+                Body = mailTemplate.RenderBody()
             };
 
             postman.Deliver(message);

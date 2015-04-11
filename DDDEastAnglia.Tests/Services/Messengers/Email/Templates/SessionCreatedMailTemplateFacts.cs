@@ -12,22 +12,22 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email.Templates
         public class The_Template_Should
         {
             [Test]
-            public void Substitute_The_Session_Title()
+            public void Substitute_The_Session_Title_In_The_Template_Body()
             {
                 var template = CreateSut(title: "My awesome session");
 
-                var renderedTemplate = template.Render();
+                var renderedTemplate = template.RenderBody();
 
                 Assert.That(renderedTemplate, Is.Not.StringContaining("[SessionTitle]"));
                 Assert.That(renderedTemplate, Contains.Substring("My awesome session"));
             }
 
             [Test]
-            public void Substitute_The_Session_Abstract()
+            public void Substitute_The_Session_Abstract_In_The_Template_Body()
             {
                 var template = CreateSut(@abstract: "Vote for me!");
 
-                var renderedTemplate = template.Render();
+                var renderedTemplate = template.RenderBody();
 
                 Assert.That(renderedTemplate, Is.Not.StringContaining("[SessionAbstract]"));
                 Assert.That(renderedTemplate, Contains.Substring("Vote for me!"));
