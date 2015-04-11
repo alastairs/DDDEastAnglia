@@ -5,12 +5,12 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Services.Messenger.Email
 {
-    public class SessionCreationMailMessenger : IMessenger<Session>
+    public class SessionSubmittedMailMessenger : IMessenger<Session>
     {
         private readonly IPostman postman;
         private readonly IMailTemplate mailTemplate;
 
-        public SessionCreationMailMessenger(IPostman postman, IMailTemplate mailTemplate)
+        public SessionSubmittedMailMessenger(IPostman postman, IMailTemplate mailTemplate)
         {
             if (postman == null)
             {

@@ -9,7 +9,7 @@ using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 namespace DDDEastAnglia.Tests.Services.Messengers.Email
 {
     [TestFixture]
-    public class SessionCreatedMailMessengerFacts
+    public class SessionSubmittedMailMessengerFacts
     {
         [TestFixture]
         public class Notify_Should
@@ -22,7 +22,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email
                 template.RenderBody().Returns("Message body");
                 template.RenderSubjectLine().Returns("Message subject");
 
-                var messenger = new SessionCreationMailMessenger(postman, template);
+                var messenger = new SessionSubmittedMailMessenger(postman, template);
                 messenger.Notify(new UserProfile {EmailAddress = "speaker@dddeastanglia.com"},
                     new Session {Title = "My awesome session", Abstract = ""});
 
