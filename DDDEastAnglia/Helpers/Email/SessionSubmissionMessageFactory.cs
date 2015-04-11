@@ -22,13 +22,8 @@ namespace DDDEastAnglia.Helpers.Email
 
         private readonly IFileContentsProvider fileContentsProvider;
 
-        public SessionSubmissionMessageFactory(IMessageFactory messageFactory, IFileContentsProvider fileContentsProvider)
+        public SessionSubmissionMessageFactory(IFileContentsProvider fileContentsProvider)
         {
-            if (messageFactory == null)
-            {
-                throw new ArgumentNullException("messageFactory");
-            }
-
             if (fileContentsProvider == null)
             {
                 throw new ArgumentNullException("fileContentsProvider");
