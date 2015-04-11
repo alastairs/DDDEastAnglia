@@ -6,7 +6,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
     {
         public IMailMessage Create(MailAddress from, MailAddress to, string subject, string htmlContent, string textContent)
         {
-            return new SendGridMessageWrapper
+            return new MailMessage
             {
                 From = from,
                 To = new[] { to },

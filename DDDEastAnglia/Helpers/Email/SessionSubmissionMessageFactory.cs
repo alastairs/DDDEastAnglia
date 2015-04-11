@@ -4,6 +4,7 @@ using DDDEastAnglia.Models;
 using MarkdownSharp;
 using System;
 using System.Net.Mail;
+using MailMessage = DDDEastAnglia.Helpers.Email.SendGrid.MailMessage;
 
 namespace DDDEastAnglia.Helpers.Email
 {
@@ -52,7 +53,7 @@ namespace DDDEastAnglia.Helpers.Email
             var text = textTemplate.Replace(sessionTitleToken, session.Title).Replace(sessionAbstractToken, session.Abstract);
 
             string emailSubject = updated ? "DDD East Anglia Updated Session: " + session.Title : "DDD East Anglia Session Submission: " + session.Title;
-            return new SendGridMessageWrapper
+            return new MailMessage
             {
                 From = @from,
                 To = new[] { to },

@@ -413,7 +413,7 @@
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider.cs" />
     <Compile Include="Helpers\Email\ResetPasswordEmailSender.cs" />
     <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender.cs" />
-    <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper.cs" />
+    <Compile Include="Helpers\Email\SendGrid\MailMessage.cs" />
     <Compile Include="Helpers\AppSettings\WebConfigurationAppSettingsProvider.cs" />
     <Compile Include="Helpers\IControllerInformationProvider.cs" />
     <Compile Include="Helpers\Email\IMailHostSettings.cs" />

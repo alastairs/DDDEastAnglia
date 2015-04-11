@@ -2,7 +2,7 @@
 
 namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
-    public class SendGridMessageWrapper : IMailMessage
+    public class MailMessage : IMailMessage
     {
         public MailAddress From { get; set; }
         public MailAddress[] To { get; set; }
