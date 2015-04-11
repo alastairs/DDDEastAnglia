@@ -1,11 +1,9 @@
-using DDDEastAnglia.Helpers.Email;
-using DDDEastAnglia.Models;
 using System;
-using System.Collections.Generic;
 using System.Net.Mail;
-using MailMessage = DDDEastAnglia.Helpers.Email.MailMessage;
+using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Models;
 
-namespace DDDEastAnglia.Helpers
+namespace DDDEastAnglia.Services.Messenger.Email
 {
     public class SessionCreationMailMessenger : IMessenger<Session>
     {

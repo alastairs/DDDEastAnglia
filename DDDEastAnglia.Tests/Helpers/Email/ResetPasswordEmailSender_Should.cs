@@ -4,7 +4,8 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Net.Mail;
-using MailMessage = DDDEastAnglia.Helpers.Email.MailMessage;
+using DDDEastAnglia.Services.Messenger.Email;
+using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Helpers.Email
 {

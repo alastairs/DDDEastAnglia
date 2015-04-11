@@ -1,8 +1,7 @@
 using System;
-using DDDEastAnglia.Helpers.Email.SendGrid;
 using MarkdownSharp;
 
-namespace DDDEastAnglia.Helpers
+namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
     internal class HtmlRenderer : IRenderer
     {

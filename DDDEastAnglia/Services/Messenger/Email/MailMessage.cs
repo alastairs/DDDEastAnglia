@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace DDDEastAnglia.Helpers.Email
+namespace DDDEastAnglia.Services.Messenger.Email
 {
     public class MailMessage
     {

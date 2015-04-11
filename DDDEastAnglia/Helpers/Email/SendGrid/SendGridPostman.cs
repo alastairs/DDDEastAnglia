@@ -2,6 +2,8 @@
 using System;
 using System.Net;
 using System.Net.Mail;
+using DDDEastAnglia.Services.Messenger.Email;
+using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 
 namespace DDDEastAnglia.Helpers.Email.SendGrid
 {

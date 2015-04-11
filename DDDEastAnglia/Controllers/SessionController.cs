@@ -6,6 +6,9 @@ using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
+using DDDEastAnglia.Services.Messenger;
+using DDDEastAnglia.Services.Messenger.Email;
+using DDDEastAnglia.Services.Messenger.Email.Templates;
 
 namespace DDDEastAnglia.Controllers
 {

@@ -1,7 +1,8 @@
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
 
-namespace DDDEastAnglia.Helpers
+namespace DDDEastAnglia.Services.Messenger.Email.Templates
 {
     internal class SessionCreatedMailTemplate : TokenSubstitutingMailTemplate
     {

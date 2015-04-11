@@ -1,18 +1,14 @@
 using System;
-using System.IO;
-using System.Reflection;
 using System.Web;
-using System.Web.UI.HtmlControls;
-using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.Email.SendGrid;
-using DDDEastAnglia.Helpers.File;
+using DDDEastAnglia.App_Start;
 using DDDEastAnglia.VotingData;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DDDEastAnglia.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DDDEastAnglia.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace DDDEastAnglia.App_Start
 {
@@ -39,17 +35,6 @@ namespace DDDEastAnglia.App_Start
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             kernel.Bind<IDateTimeOffsetProvider>().To<LocalDateTimeOffsetProvider>();
             kernel.Bind<IDataProvider>().To<DataProvider>();
-            kernel.Bind<IRenderer>()
-                .ToMethod(x =>
-                {
-                    var htmlEmailTemplateFileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DDDEastAnglia.EmailTemplate.html");
-                    using (StreamReader reader = new StreamReader(htmlEmailTemplateFileStream))
-                    {
-                        var htmlEmailTemplate = reader.ReadToEnd();
-                        return new HtmlRenderer(htmlEmailTemplate);
-                    }
-                })
-                .InSingletonScope();
 
             RegisterServices(kernel);
             return kernel;
