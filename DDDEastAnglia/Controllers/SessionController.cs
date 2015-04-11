@@ -1,6 +1,7 @@
 ﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 using System.Collections.Generic;
@@ -117,12 +118,19 @@ namespace DDDEastAnglia.Controllers
                 var addedSession = sessionRepository.AddSession(session);
 
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
+                // TODO Add as resources or in the database so we can abstract the filesystem
                 string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                MailMessage sessionSubmissionMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
-                    speakerProfile, false);
-                postman.Deliver(sessionSubmissionMessage);
+                var fileContentsProvider = new FileContentsProvider();
+                var plainTextMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
+                var htmlMailTemplate =
+                    new MarkdownConvertingMailTemplate(
+                        new TokenSubstitutingMailTemplate(
+                            htmlTemplatePath,
+                            fileContentsProvider));
+
+                new SessionCreationMailMessenger(postman, plainTextMailTemplate, htmlMailTemplate).Notify(speakerProfile, addedSession);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }

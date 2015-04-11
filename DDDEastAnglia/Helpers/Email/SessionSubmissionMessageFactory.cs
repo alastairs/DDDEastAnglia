@@ -8,7 +8,8 @@ namespace DDDEastAnglia.Helpers.Email
 {
     public interface ISessionSubmissionMessageFactory
     {
-        MailMessage Create(string htmlTemplatepath, string textTemplatePath, Session session,
+        MailMessage Create(string htmlTemplatepath, string textTemplatePath,
+            Session session,
             UserProfile speakerProfile, bool updated);
     }
 

@@ -6,7 +6,8 @@ namespace DDDEastAnglia.Helpers.Email
 {
     public interface IResetPasswordEmailSender
     {
-        void SendEmail(string htmlTemplatePath, string textTemplatePath, string toAddress, string resetPasswordUrl);
+        void SendEmail(string htmlTemplatePath, string textTemplatePath,
+            string toAddress, string resetPasswordUrl);
     }
 
     public class ResetPasswordEmailSender : IResetPasswordEmailSender
@@ -42,6 +43,7 @@ namespace DDDEastAnglia.Helpers.Email
 
             var from = new MailAddress(FromEmailAddress, FromEmailName);
             var to = new MailAddress(toAddress);
+
             var html = htmlTemplate.Replace(ResetLinkToken, resetPasswordUrl);
             var text = textTemplate.Replace(ResetLinkToken, resetPasswordUrl);
 

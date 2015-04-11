@@ -224,9 +224,11 @@
     <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="Helpers\Email\SessionSubmissionMessageFactory.cs" />
+    <Compile Include="Helpers\IMessenger.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
+    <Compile Include="Helpers\SessionCreationMailMessenger.cs" />
     <Compile Include="Models\LoginMethod.cs" />
     <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
