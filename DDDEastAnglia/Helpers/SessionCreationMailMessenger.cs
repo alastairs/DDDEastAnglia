@@ -33,11 +33,15 @@ namespace DDDEastAnglia.Helpers
 
         public void Notify(UserProfile user, Session session)
         {
+            mailTemplate.AddTokenSubstitution(SessionTitleToken, session.Title);
+            mailTemplate.AddTokenSubstitution(SessionAbstractToken, session.Abstract);
+
             var replacementTokens = new Dictionary<string, string>
             {
                 {SessionAbstractToken, session.Abstract},
                 {SessionTitleToken, session.Title}
             };
+
             MailMessage message = new MailMessage
             {
                 To = new MailAddress(user.EmailAddress),

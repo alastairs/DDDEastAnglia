@@ -8,6 +8,7 @@ namespace DDDEastAnglia.Helpers
     {
         private readonly string templatePath;
         private readonly IFileContentsProvider fileContentsProvider;
+        private readonly IDictionary<string, string> substitutions = new Dictionary<string, string>();
 
         public TokenSubstitutingMailTemplate(string templatePath, IFileContentsProvider fileContentsProvider)
         {
@@ -25,11 +26,16 @@ namespace DDDEastAnglia.Helpers
             this.fileContentsProvider = fileContentsProvider;
         }
 
+        public void AddTokenSubstitution(string token, string substitution)
+        {
+            substitutions[token] = substitution;
+        }
+
         public string Render(IDictionary<string, string> replacements)
         {
             var content = fileContentsProvider.GetFileContents(templatePath);
 
-            foreach (var token in replacements)
+            foreach (var token in substitutions)
             {
                 content = content.Replace(token.Key, token.Value);
             }
