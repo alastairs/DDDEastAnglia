@@ -66,6 +66,7 @@
     <Compile Include="Admin\UserControllerTests.cs" />
     <Compile Include="DnsLookupBuilder.cs" />
     <Compile Include="Helpers\Email\SessionSubmissionMessageFactory_Should.cs" />
+    <Compile Include="Services\Messengers\Email\SessionSubmissionMessengerFacts.cs" />
     <Compile Include="VotingControllerBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />
