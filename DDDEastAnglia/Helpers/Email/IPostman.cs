@@ -1,6 +1,4 @@
-﻿using DDDEastAnglia.Helpers.Email.SendGrid;
-
-namespace DDDEastAnglia.Helpers.Email
+﻿namespace DDDEastAnglia.Helpers.Email
 {
     public interface IPostman
     {

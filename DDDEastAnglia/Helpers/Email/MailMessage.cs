@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace DDDEastAnglia.Helpers.Email.SendGrid
+namespace DDDEastAnglia.Helpers.Email
 {
     public class MailMessage
     {
