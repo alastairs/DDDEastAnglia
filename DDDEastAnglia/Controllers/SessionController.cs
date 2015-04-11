@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.Services.Messenger.Email;
@@ -19,16 +18,14 @@ namespace DDDEastAnglia.Controllers
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
         private readonly IPostman postman;
-        private readonly ISessionSubmissionMessageFactory messageFactory;
 
-        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IPostman postman, ISessionSubmissionMessageFactory messageFactory)
+        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IPostman postman)
         {
             this.conferenceLoader = conferenceLoader;
             this.userProfileRepository = userProfileRepository;
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
             this.postman = postman;
-            this.messageFactory = messageFactory;
         }
 
         [AllowAnonymous]
