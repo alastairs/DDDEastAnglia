@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
+﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.Services.Messenger.Email;
 using DDDEastAnglia.Services.Messenger.Email.Templates;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -120,7 +120,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
-                new EmailMessenger(postman, sessionCreatedMailTemplate).Notify(speakerProfile);
+                CreateEmailMessenger(sessionCreatedMailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -165,12 +165,17 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var mailTemplate = SessionUpdatedMailTemplate.Create(textTemplatePath, session);
-                new EmailMessenger(postman, mailTemplate).Notify(speakerProfile);
+                CreateEmailMessenger(mailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Index");
             }
 
             return View(session);
+        }
+
+        private EmailMessenger CreateEmailMessenger(IMailTemplate mailTemplate)
+        {
+            return new EmailMessenger(postman, mailTemplate);
         }
 
         [UserNameFilter("userName")]
