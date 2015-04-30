@@ -2,7 +2,6 @@
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
-using DDDEastAnglia.Services.Messenger.Email;
 using DDDEastAnglia.Services.Messenger.Email.Templates;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,17 +16,15 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
-        private readonly IPostman postman;
         private readonly EmailMessengerFactory emailMessengerFactory;
 
-        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IPostman postman)
+        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, EmailMessengerFactory messengerFactory)
         {
             this.conferenceLoader = conferenceLoader;
             this.userProfileRepository = userProfileRepository;
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
-            this.postman = postman;
-            emailMessengerFactory = new EmailMessengerFactory(this.postman);
+            emailMessengerFactory = messengerFactory;
         }
 
         [AllowAnonymous]
