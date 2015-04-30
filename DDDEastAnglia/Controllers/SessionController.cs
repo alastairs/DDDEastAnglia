@@ -4,6 +4,7 @@ using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.Services.Messenger.Email;
 using DDDEastAnglia.Services.Messenger.Email.Templates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -120,7 +121,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
-                CreateEmailMessenger(sessionCreatedMailTemplate).Notify(speakerProfile);
+                new EmailMessengerFactory(postman).CreateEmailMessenger(sessionCreatedMailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -165,17 +166,12 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var mailTemplate = SessionUpdatedMailTemplate.Create(textTemplatePath, session);
-                CreateEmailMessenger(mailTemplate).Notify(speakerProfile);
+                new EmailMessengerFactory(postman).CreateEmailMessenger(mailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Index");
             }
 
             return View(session);
-        }
-
-        private EmailMessenger CreateEmailMessenger(IMailTemplate mailTemplate)
-        {
-            return new EmailMessenger(postman, mailTemplate);
         }
 
         [UserNameFilter("userName")]
@@ -252,6 +248,26 @@ namespace DDDEastAnglia.Controllers
         private bool UserDoesNotOwnSession(string userName, Session session)
         {
             return session.SpeakerUserName != userName;
+        }
+    }
+
+    public class EmailMessengerFactory
+    {
+        private readonly IPostman _postman;
+
+        public EmailMessengerFactory(IPostman postman)
+        {
+            if (postman == null)
+            {
+                throw new ArgumentNullException("postman");
+            }
+
+            _postman = postman;
+        }
+
+        public EmailMessenger CreateEmailMessenger(IMailTemplate mailTemplate)
+        {
+            return new EmailMessenger(_postman, mailTemplate);
         }
     }
 }
