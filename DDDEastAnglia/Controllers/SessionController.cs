@@ -18,6 +18,7 @@ namespace DDDEastAnglia.Controllers
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
         private readonly IPostman postman;
+        private readonly EmailMessengerFactory emailMessengerFactory;
 
         public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IPostman postman)
         {
@@ -26,6 +27,7 @@ namespace DDDEastAnglia.Controllers
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
             this.postman = postman;
+            emailMessengerFactory = new EmailMessengerFactory(this.postman);
         }
 
         [AllowAnonymous]
@@ -120,7 +122,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
-                new EmailMessengerFactory(postman).CreateEmailMessenger(sessionCreatedMailTemplate).Notify(speakerProfile);
+                emailMessengerFactory.CreateEmailMessenger(sessionCreatedMailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -165,7 +167,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var mailTemplate = SessionUpdatedMailTemplate.Create(textTemplatePath, session);
-                new EmailMessengerFactory(postman).CreateEmailMessenger(mailTemplate).Notify(speakerProfile);
+                emailMessengerFactory.CreateEmailMessenger(mailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Index");
             }
