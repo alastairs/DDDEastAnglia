@@ -19,9 +19,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void CannotSeeSessionList_WhenTheConferenceSaysThatSessionsCannotBeShown()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanShowSessions().Returns(false);
-            var controller = SessionControllerFactory.Create(conference);
+            var controller = new SessionControllerBuilder().Build();
 
             var result = controller.Index();
 
@@ -31,9 +29,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void CannotSubmitASession_WhenSessionSubmissionIsClosed()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanSubmit().Returns(false);
-            var controller = SessionControllerFactory.Create(conference);
+            var controller = new SessionControllerBuilder().Build();
 
             var result = controller.Create(new Session());
 
@@ -216,15 +212,5 @@ namespace DDDEastAnglia.Tests.Controllers
             }
         }
 
-        private static class SessionControllerFactory
-        {
-            public static SessionController Create(IConference conference)
-            {
-                var conferenceLoader = Substitute.For<IConferenceLoader>();
-                conferenceLoader.LoadConference().Returns(conference);
-                var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>(), new EmailMessengerFactory(Substitute.For<IPostman>()));
-                return controller;
-            }
-        }
     }
 }
