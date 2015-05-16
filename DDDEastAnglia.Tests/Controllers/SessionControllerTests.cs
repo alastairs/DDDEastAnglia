@@ -6,6 +6,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System.Web.Mvc;
 using DDDEastAnglia.Services.Messenger.Email.Templates;
+using DDDEastAnglia.Tests.Builders;
 using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Controllers
