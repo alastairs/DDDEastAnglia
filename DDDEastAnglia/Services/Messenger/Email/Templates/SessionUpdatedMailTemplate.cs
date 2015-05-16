@@ -15,9 +15,9 @@ namespace DDDEastAnglia.Services.Messenger.Email.Templates
         {
         }
 
-        public static IMailTemplate Create(string templatePath, Session session)
+        public static IMailTemplate Create(Session session)
         {
-            var template = new SessionUpdatedMailTemplate(new FileContentsProvider().GetFileContents(templatePath));
+            var template = new SessionUpdatedMailTemplate(Emails.SessionSubmission);
             template.AddTokenSubstitution(SessionTitleToken, session.Title);
             template.AddTokenSubstitution(SessionAbstractToken, session.Abstract);
 

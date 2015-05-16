@@ -128,9 +128,7 @@ namespace DDDEastAnglia.Controllers
             string protocol = Request.Url.Scheme;
             string resetUrl = Url.Action("EmailConfirmation", "ResetPassword", new { token = passwordResetToken }, protocol);
 
-            string textTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.txt");
-
-            var mailTemplate = PasswordResetMailTemplate.Create(textTemplatePath, resetUrl);
+            var mailTemplate = PasswordResetMailTemplate.Create(resetUrl);
             emailMessengerFactory.CreateEmailMessenger(mailTemplate).Notify(profile);
         }
     }
