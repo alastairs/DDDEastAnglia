@@ -117,6 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ResetPasswordRequest" xml:space="preserve">
+    <value>We have received a password change request for your DDD East Anglia account.
+        
+If you made this request, then please visit the address below.
+       
+[resetLink]
+
+This reset request will expire after 2 hours.
+                
+If you did not ask to change your password, then please ignore this email. Another user may have entered your username by mistake. No changes will be made to your account.
+
+You can contact us at organisers@dddeastanglia.com.</value>
+    <comment>Sent when a password reset request is received for an account.</comment>
+  </data>
   <data name="SessionSubmission" xml:space="preserve">
     <value>Thanks for submitting a session for DDD East Anglia!
         

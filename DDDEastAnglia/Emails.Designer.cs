@@ -61,6 +61,25 @@ namespace DDDEastAnglia {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We have received a password change request for your DDD East Anglia account.
+        ///        
+        ///If you made this request, then please visit the address below.
+        ///       
+        ///[resetLink]
+        ///
+        ///This reset request will expire after 2 hours.
+        ///                
+        ///If you did not ask to change your password, then please ignore this email. Another user may have entered your username by mistake. No changes will be made to your account.
+        ///
+        ///You can contact us at organisers@dddeastanglia.com..
+        /// </summary>
+        internal static string ResetPasswordRequest {
+            get {
+                return ResourceManager.GetString("ResetPasswordRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thanks for submitting a session for DDD East Anglia!
         ///        
         ///Here&apos;s a copy of your session abstract for your records:
