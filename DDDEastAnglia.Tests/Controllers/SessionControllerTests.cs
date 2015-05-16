@@ -44,7 +44,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void CannotBeginToEditASession_WhenTheSessionBelongsToAnotherUser()
         {
             var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
-            var controller = SessionControllerFactory.Create(session);
+            var controller = new SessionControllerBuilder().Updating(session).Build();
 
             var result = controller.Edit("fred", 1);
 
@@ -55,7 +55,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void CannotSaveAnEditToASession_WhenTheSessionBelongsToAnotherUser()
         {
             var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
-            var controller = SessionControllerFactory.Create(session);
+            var controller = new SessionControllerBuilder().Updating(session).Build();
 
             var result = controller.Edit("fred", session);
 
@@ -66,7 +66,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void CannotBeginToDeleteASession_WhenTheSessionBelongsToAnotherUser()
         {
             var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
-            var controller = SessionControllerFactory.Create(session);
+            var controller = new SessionControllerBuilder().Updating(session).Build();
 
             var result = controller.Delete("fred", 1);
 
@@ -77,7 +77,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void CannotConfirmToDeleteASession_WhenTheSessionBelongsToAnotherUser()
         {
             var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
-            var controller = SessionControllerFactory.Create(session);
+            var controller = new SessionControllerBuilder().Updating(session).Build();
 
             var result = controller.DeleteConfirmed("fred", 1);
 
@@ -223,14 +223,6 @@ namespace DDDEastAnglia.Tests.Controllers
                 var conferenceLoader = Substitute.For<IConferenceLoader>();
                 conferenceLoader.LoadConference().Returns(conference);
                 var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>(), new EmailMessengerFactory(Substitute.For<IPostman>()));
-                return controller;
-            }
-
-            public static SessionController Create(Session session)
-            {
-                var sessionRepository = Substitute.For<ISessionRepository>();
-                sessionRepository.Get(session.SessionId).Returns(session);
-                var controller = new SessionController(Substitute.For<IConferenceLoader>(), Substitute.For<IUserProfileRepository>(), sessionRepository, Substitute.For<ISessionSorter>(), new EmailMessengerFactory(Substitute.For<IPostman>()));
                 return controller;
             }
         }
