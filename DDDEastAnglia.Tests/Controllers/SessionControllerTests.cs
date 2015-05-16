@@ -1,13 +1,11 @@
-﻿using System.Net.Mail;
-using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Models;
+﻿using DDDEastAnglia.Models;
 using DDDEastAnglia.Services.Messenger.Email;
 using NSubstitute;
 using NUnit.Framework;
 using System.Web.Mvc;
 using DDDEastAnglia.Services.Messenger.Email.Templates;
 using DDDEastAnglia.Tests.Builders;
-using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
+using MailMessage = DDDEastAnglia.Tests.Helpers.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Controllers
 {
@@ -102,7 +100,7 @@ namespace DDDEastAnglia.Tests.Controllers
 
                 controller.Create(session);
 
-                var expectedMailMessage = FromTemplate(SessionCreatedMailTemplate.Create(session), bob);
+                var expectedMailMessage = MailMessage.FromTemplate(SessionCreatedMailTemplate.Create(session), bob);
                 postman.Received().Deliver(expectedMailMessage);
             }
 
@@ -126,19 +124,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
                 controller.Edit(bob.UserName, session);
 
-                var expectedMailMessage = FromTemplate(SessionUpdatedMailTemplate.Create(session), bob);
+                var expectedMailMessage = MailMessage.FromTemplate(SessionUpdatedMailTemplate.Create(session), bob);
                 postman.Received().Deliver(expectedMailMessage);
-            }
-
-            private static MailMessage FromTemplate(IMailTemplate mailTemplate, UserProfile userProfile)
-            {
-                return new MailMessage
-                {
-                    To = new MailAddress(userProfile.EmailAddress, userProfile.Name),
-                    From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
-                    Subject = mailTemplate.RenderSubjectLine(),
-                    Body = mailTemplate.RenderBody()
-                };
             }
         }
     }

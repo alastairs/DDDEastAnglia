@@ -66,6 +66,7 @@
     <Compile Include="Admin\SessionControllerTests.cs" />
     <Compile Include="Admin\UserControllerTests.cs" />
     <Compile Include="Builders\DnsLookupBuilder.cs" />
+    <Compile Include="Helpers\Email\MailMessage.cs" />
     <Compile Include="Helpers\Email\SendGrid\HtmlRendererFacts.cs" />
     <Compile Include="Services\Messengers\Email\SessionSubmissionMessengerFacts.cs" />
     <Compile Include="Services\Messengers\Email\Templates\SessionUpdatedMailTemplateFacts.cs" />
