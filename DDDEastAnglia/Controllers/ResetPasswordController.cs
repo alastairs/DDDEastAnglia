@@ -13,8 +13,9 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly IResetPasswordThingy resetPasswordThingy;
         private readonly IPostman postman;
+        private readonly EmailMessengerFactory emailMessengerFactory;
 
-        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, IPostman postman)
+        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, IPostman postman, EmailMessengerFactory emailMessengerFactory)
         {
             if (userProfileRepository == null)
             {
@@ -31,9 +32,15 @@ namespace DDDEastAnglia.Controllers
                 throw new ArgumentNullException("postman");
             }
 
+            if (emailMessengerFactory == null)
+            {
+                throw new ArgumentNullException("emailMessengerFactory");
+            }
+
             this.userProfileRepository = userProfileRepository;
             this.resetPasswordThingy = resetPasswordThingy;
             this.postman = postman;
+            this.emailMessengerFactory = emailMessengerFactory;
         }
 
         [HttpGet]
@@ -124,7 +131,7 @@ namespace DDDEastAnglia.Controllers
             string textTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.txt");
 
             var mailTemplate = PasswordResetMailTemplate.Create(textTemplatePath, resetUrl);
-            new EmailMessenger(postman, mailTemplate).Notify(profile);
+            emailMessengerFactory.CreateEmailMessenger(mailTemplate).Notify(profile);
         }
     }
 }
