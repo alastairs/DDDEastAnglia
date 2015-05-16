@@ -112,6 +112,30 @@ namespace DDDEastAnglia.Tests.Controllers
                 postman.Received().Deliver(expectedMailMessage);
             }
 
+            [Test]
+            public void ShouldEmailTheUserTheirUpdatedSubmission_WhenEditing()
+            {
+                var bob = new UserProfile { Name = "Bob", EmailAddress = "bob@example.com", UserName = "bob" };
+                var session = new Session
+                {
+                    Title = "Bob's even more awesome session",
+                    Abstract = "Just wait until you see it!",
+                    SpeakerUserName = bob.UserName,
+                    SessionId = 1
+                };
+
+                var controller = new SessionControllerBuilder()
+                    .WithPostman(postman)
+                    .ForUser(bob)
+                    .Updating(session)
+                    .Build();
+
+                controller.Edit(bob.UserName, session);
+
+                var expectedMailMessage = FromTemplate(SessionUpdatedMailTemplate.Create(session), bob);
+                postman.Received().Deliver(expectedMailMessage);
+            }
+
             private static MailMessage FromTemplate(IMailTemplate mailTemplate, UserProfile userProfile)
             {
                 return new MailMessage
@@ -168,6 +192,12 @@ namespace DDDEastAnglia.Tests.Controllers
             public SessionControllerBuilder Submitting(Session session)
             {
                 sessionRepository.AddSession(session).Returns(session);
+                return this;
+            }
+
+            public SessionControllerBuilder Updating(Session session)
+            {
+                sessionRepository.Get(session.SessionId).Returns(session);
                 return this;
             }
 
